@@ -1,0 +1,25 @@
+package sit.int221.sc3_server.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import sit.int221.sc3_server.entity.Product;
+import sit.int221.sc3_server.exception.ItemNotFoundException;
+import sit.int221.sc3_server.repository.ProductRepository;
+
+import java.util.List;
+
+@Service
+public class ProductServices {
+    @Autowired
+    private ProductRepository productRepository;
+
+    public List<Product> getAllProduct(){
+        return productRepository.findAllByOrderByCreatedOnDesc();
+    }
+
+    public Product getProductById(int id){
+        return productRepository.findById(id).orElseThrow(
+                () -> new ItemNotFoundException("SaleItem not found for this id :: " + id)
+        );
+    }
+}
