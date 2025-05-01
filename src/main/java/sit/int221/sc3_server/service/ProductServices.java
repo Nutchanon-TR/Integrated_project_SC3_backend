@@ -13,11 +13,11 @@ public class ProductServices {
     @Autowired
     private ProductRepository productRepository;
 
-    public List<Product> getAllProduct(){
+    public List<Product> getAllProduct() {
         return productRepository.findAllByOrderByCreatedOnDesc();
     }
 
-    public Product getProductById(int id){
+    public Product getProductById(int id) {
         return productRepository.findById(id).orElseThrow(
                 () -> new ItemNotFoundException("SaleItem not found for this id :: " + id)
         );
