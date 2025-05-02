@@ -14,8 +14,13 @@ import sit.int221.sc3_server.utils.ListMapper;
 import java.util.List;
 
 @RestController
+<<<<<<< HEAD
 @RequestMapping("/itb-mshop/v1")
 @CrossOrigin(origins = "${app.cors.allowedOrigins}")
+=======
+@RequestMapping("/itb-mshop")
+// @CrossOrigin(origins = "${app.cors.allowedOrigins}")
+>>>>>>> 1e1ab98e0851a70dae63b70acc643e07a9b0fee7
 public class ProductController {
     @Autowired
     private ProductServices productServices;
