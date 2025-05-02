@@ -13,13 +13,13 @@ import sit.int221.sc3_server.service.BrandServices;
 import java.util.List;
 
 @RestController
-@RequestMapping("/itb-mshop")
+@RequestMapping("/itb-mshop/v1")
 @CrossOrigin(origins = "${app.cors.allowedOrigins}")
 public class BrandController {
     @Autowired
     private BrandServices brandServices;
 
-        @GetMapping("/v1/brands")
+        @GetMapping("/brands")
     public ResponseEntity<List<Brand>> getAllBrands(){
         var brand = brandServices.getAllBrand();
         return ResponseEntity.ok(brand);

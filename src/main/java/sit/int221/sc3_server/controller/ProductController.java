@@ -14,7 +14,7 @@ import sit.int221.sc3_server.utils.ListMapper;
 import java.util.List;
 
 @RestController
-@RequestMapping("/itb-mshop")
+@RequestMapping("/itb-mshop/v1")
 @CrossOrigin(origins = "${app.cors.allowedOrigins}")
 public class ProductController {
     @Autowired
@@ -24,14 +24,14 @@ public class ProductController {
 
     @Autowired
     private ListMapper listMapper;
-    @GetMapping("/v1/sale-items")
+    @GetMapping("/sale-items")
     public ResponseEntity<List<salesItemDTO>> getAllSaleItem(){
         List<Product> productItem = productServices.getAllProduct();
         List<salesItemDTO> productDto = listMapper.mapList(productItem, salesItemDTO.class,modelMapper);
         return ResponseEntity.ok(productDto);
     }
 
-    @GetMapping("/v1/sale-items/{id}")
+    @GetMapping("/sale-items/{id}")
     public  ResponseEntity<SalesItemDetailDTO> getSaleItemById(@PathVariable int id){
         return ResponseEntity.ok().body(modelMapper.map(productServices.getProductById(id), SalesItemDetailDTO.class));
     }
