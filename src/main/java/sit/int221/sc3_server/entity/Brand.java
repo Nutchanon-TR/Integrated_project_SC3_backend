@@ -28,7 +28,7 @@ public class Brand {
     private String name;
 
     @Size(max = 40)
-    @Column(name = "websiteUrl", length = 40)
+    @Column(name = "webSiteUrl", length = 40)
     private String websiteUrl;
 
     @NotNull
