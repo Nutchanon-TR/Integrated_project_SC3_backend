@@ -10,7 +10,7 @@ public class salesItemDTO {
     private String model;
     private String brandName;
     private int price;
-    private int ramGb;
-    private int storageGb;
+    private Integer ramGb;
+    private Integer storageGb;
     private String color;
 }

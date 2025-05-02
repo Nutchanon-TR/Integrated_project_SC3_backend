@@ -12,9 +12,9 @@ public class SalesItemDetailDTO {
     private String brandName;
     private String description;
     private int price;
-    private int ramGb;
-    private double screenSizeInch;
+    private Integer ramGb;
+    private Double screenSizeInch;
     private int quantity;
-    private int storageGb;
+    private Integer storageGb;
     private String color;
 }
