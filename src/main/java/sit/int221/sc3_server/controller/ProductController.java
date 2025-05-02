@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/itb-mshop")
-@CrossOrigin(origins = "${app.cors.allowedOrigins}")
+// @CrossOrigin(origins = "${app.cors.allowedOrigins}")
 public class ProductController {
     @Autowired
     private ProductServices productServices;
