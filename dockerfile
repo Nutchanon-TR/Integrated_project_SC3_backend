@@ -5,7 +5,7 @@ COPY . .
 RUN ["mvn", "clean", "package", "-DskipTests"]
 
 # Runtime Stage
-FROM openjdk:latest
+FROM openjdk:21
 WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 EXPOSE 8080
