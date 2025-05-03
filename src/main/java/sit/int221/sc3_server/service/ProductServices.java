@@ -13,13 +13,17 @@ public class ProductServices {
     @Autowired
     private ProductRepository productRepository;
 
-    public List<Product> getAllProduct(){
+    public List<Product> getAllProduct() {
         return productRepository.findAllByOrderByCreatedOnDesc();
     }
 
-    public Product getProductById(int id){
-        return productRepository.findById(id).orElseThrow(
-                () -> new ItemNotFoundException("SaleItem not found for this id :: " + id)
-        );
+    public Product getProductById(int id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ItemNotFoundException("SaleItem not found for this id :: " + id));
+        if (product.getDescription() != null) {
+            String cleaned = product.getDescription().replaceAll("[\\n\\r\\u00A0\\u200B]", "").trim();
+            product.setDescription(cleaned);
+        }
+        return product;
     }
 }

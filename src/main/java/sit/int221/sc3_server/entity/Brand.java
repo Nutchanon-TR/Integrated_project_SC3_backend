@@ -15,7 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "brand")
+@Table(name = "Brand")
 public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ public class Brand {
     private String name;
 
     @Size(max = 40)
-    @Column(name = "websiteUrl", length = 40)
+    @Column(name = "webSiteUrl", length = 40)
     private String websiteUrl;
 
     @NotNull

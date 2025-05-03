@@ -11,7 +11,8 @@ import java.util.List;
 public class BrandServices {
     @Autowired
     private BrandRepository brandRepository;
-    public List<Brand> getAllBrand(){
+
+    public List<Brand> getAllBrand() {
         return brandRepository.findAll();
     }
 }
