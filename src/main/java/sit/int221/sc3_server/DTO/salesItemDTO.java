@@ -9,7 +9,7 @@ public class salesItemDTO {
     private int id;
     private String model;
     private String brandName;
-    private int prince;
+    private int price;
     private int ramGb;
     private int storageGb;
     private String color;
