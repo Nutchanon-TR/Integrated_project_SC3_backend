@@ -20,8 +20,8 @@ public class BrandController {
     @Autowired
     private BrandServices brandServices;
 
-        @GetMapping("/brands")
-    public ResponseEntity<List<Brand>> getAllBrands(){
+    @GetMapping("/brands")
+    public ResponseEntity<List<Brand>> getAllBrands() {
         var brand = brandServices.getAllBrand();
         return ResponseEntity.ok(brand);
     }

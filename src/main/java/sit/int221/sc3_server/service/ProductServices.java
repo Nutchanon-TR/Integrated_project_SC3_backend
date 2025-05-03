@@ -18,8 +18,12 @@ public class ProductServices {
     }
 
     public Product getProductById(int id) {
-        return productRepository.findById(id).orElseThrow(
-                () -> new ItemNotFoundException("SaleItem not found for this id :: " + id)
-        );
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ItemNotFoundException("SaleItem not found for this id :: " + id));
+        if (product.getDescription() != null) {
+            String cleaned = product.getDescription().replaceAll("[\\n\\r\\u00A0\\u200B]", "").trim();
+            product.setDescription(cleaned);
+        }
+        return product;
     }
 }
