@@ -2,6 +2,7 @@ package sit.int221.sc3_server.controller;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sit.int221.sc3_server.DTO.SalesItemDetailDTO;
@@ -37,4 +38,8 @@ public class ProductController {
         return ResponseEntity.ok().body(modelMapper.map(productServices.getProductById(id), SalesItemDetailDTO.class));
     }
 
+    @PostMapping("/sale-items")
+    public ResponseEntity<SalesItemDetailDTO> createSaleItem(@RequestBody SalesItemDetailDTO salesItemDetailDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(productServices.createProduct(salesItemDetailDTO));
+    }
 }

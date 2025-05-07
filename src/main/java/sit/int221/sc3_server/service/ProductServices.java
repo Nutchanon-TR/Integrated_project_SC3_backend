@@ -1,7 +1,11 @@
 package sit.int221.sc3_server.service;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+import sit.int221.sc3_server.DTO.SalesItemDetailDTO;
 import sit.int221.sc3_server.entity.Product;
 import sit.int221.sc3_server.exception.ItemNotFoundException;
 import sit.int221.sc3_server.repository.ProductRepository;
@@ -12,7 +16,8 @@ import java.util.List;
 public class ProductServices {
     @Autowired
     private ProductRepository productRepository;
-
+    @Autowired
+    private ModelMapper modelMapper;
     public List<Product> getAllProduct() {
         return productRepository.findAll();
 
@@ -34,6 +39,15 @@ public class ProductServices {
             product.setDescription(cleaned);
         }
         return product;
+    }
+
+
+    public SalesItemDetailDTO createProduct(SalesItemDetailDTO salesItemDetailDTO){
+        if(productRepository.existsById(salesItemDetailDTO.getId())){
+            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST,"SaleItem "+ salesItemDetailDTO.getId() + "already exists ");
+        }
+    Product product = modelMapper.map(salesItemDetailDTO, Product.class);
+        return modelMapper.map(productRepository.saveAndFlush(product),SalesItemDetailDTO.class);
     }
 
 }

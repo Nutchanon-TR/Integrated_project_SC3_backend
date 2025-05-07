@@ -26,10 +26,6 @@ public class Product {
     @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
 
-    @Transient
-    public Integer getBrandId() {
-        return brand != null ? brand.getId() : null;
-    }
 
     @Size(max = 60)
     @NotNull
@@ -70,4 +66,14 @@ public class Product {
     @Column(name = "updatedOn", nullable = false)
     private Instant updatedOn;
 
+//    @PrePersist
+//    public void onCreate() {
+//        this.createdOn = Instant.now();
+//        this.updatedOn = Instant.now();
+//    }
+//
+//    @PreUpdate
+//    public void onUpdate() {
+//        this.updatedOn = Instant.now();
+//    }
 }
