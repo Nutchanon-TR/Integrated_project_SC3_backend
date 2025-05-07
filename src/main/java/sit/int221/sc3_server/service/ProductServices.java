@@ -45,7 +45,6 @@ public class ProductServices {
         return product;
     }
 
-<<<<<<< HEAD
     public Product updateProduct(int id, SalesItemCreateAndUpdate newProduct) {
         Product existing = productRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("Product ID not found"));
@@ -55,6 +54,4 @@ public class ProductServices {
 //        updated.setUpdatedOn(Instant.now());
         return productRepository.saveAndFlush(updated);
     }
-=======
->>>>>>> 4a5ebf68b28161fd8130c84f850a0bbd365f397a
 }
