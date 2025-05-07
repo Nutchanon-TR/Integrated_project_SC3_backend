@@ -7,10 +7,13 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import sit.int221.sc3_server.entity.Brand;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -58,22 +61,13 @@ public class Product {
     @Column(name = "color", length = 60)
     private String color;
 
-    @NotNull
-    @Column(name = "createdOn", nullable = false)
-    private Instant createdOn;
+    @CreationTimestamp
+    @Column(name = "createdOn", nullable = false, updatable = false, columnDefinition = "DATETIME")
+    private LocalDateTime createdOn;
 
-    @NotNull
-    @Column(name = "updatedOn", nullable = false)
-    private Instant updatedOn;
 
-//    @PrePersist
-//    public void onCreate() {
-//        this.createdOn = Instant.now();
-//        this.updatedOn = Instant.now();
-//    }
-//
-//    @PreUpdate
-//    public void onUpdate() {
-//        this.updatedOn = Instant.now();
-//    }
+    @UpdateTimestamp
+    @Column(name = "updatedOn", nullable = false, columnDefinition = "DATETIME")
+    private LocalDateTime updatedOn;
+
 }

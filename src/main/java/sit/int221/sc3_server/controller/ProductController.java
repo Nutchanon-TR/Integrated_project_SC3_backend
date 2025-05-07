@@ -1,13 +1,15 @@
 package sit.int221.sc3_server.controller;
 
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sit.int221.sc3_server.DTO.SalesItemAllDataDTO;
+import sit.int221.sc3_server.DTO.SalesItemCreateAndUpdate;
 import sit.int221.sc3_server.DTO.SalesItemDetailDTO;
 import sit.int221.sc3_server.DTO.salesItemDTO;
-import sit.int221.sc3_server.entity.Brand;
 import sit.int221.sc3_server.entity.Product;
 import sit.int221.sc3_server.service.ProductServices;
 import sit.int221.sc3_server.utils.ListMapper;
@@ -16,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/itb-mshop/v1")
-//@CrossOrigin(origins = "${app.cors.allowedOrigins}")
+@CrossOrigin(origins = "${app.cors.allowedOrigins}")
 
 public class ProductController {
     @Autowired
@@ -34,12 +36,22 @@ public class ProductController {
     }
 
     @GetMapping("/sale-items/{id}")
-    public  ResponseEntity<SalesItemDetailDTO> getSaleItemById(@PathVariable int id){
+    public ResponseEntity<SalesItemDetailDTO> getSaleItemById(@PathVariable int id){
         return ResponseEntity.ok().body(modelMapper.map(productServices.getProductById(id), SalesItemDetailDTO.class));
     }
 
+
     @PostMapping("/sale-items")
-    public ResponseEntity<SalesItemDetailDTO> createSaleItem(@RequestBody SalesItemDetailDTO salesItemDetailDTO){
-        return ResponseEntity.status(HttpStatus.CREATED).body(productServices.createProduct(salesItemDetailDTO));
+    public ResponseEntity<SalesItemAllDataDTO> createSaleItem(@RequestBody @Valid SalesItemCreateAndUpdate salesItemCreateAndUpdate){
+        Product product = productServices.createProduct(salesItemCreateAndUpdate);
+        return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(product,SalesItemAllDataDTO.class));
     }
+
+    @PutMapping("/sale-items/{id}")
+    public ResponseEntity<SalesItemAllDataDTO> updateSaleItem(@PathVariable int id, @RequestBody @Valid SalesItemCreateAndUpdate productDto){
+        Product product = productServices.updateProduct(id, productDto);
+        return ResponseEntity.ok().body(modelMapper.map(product, SalesItemAllDataDTO.class));
+    }
+
+
 }

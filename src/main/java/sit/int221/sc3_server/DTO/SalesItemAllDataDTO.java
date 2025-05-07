@@ -1,34 +1,37 @@
 package sit.int221.sc3_server.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import sit.int221.sc3_server.entity.Product;
 
+import java.time.LocalDateTime;
 
 @Data
-
-public class SalesItemDetailDTO {
+public class SalesItemAllDataDTO {
     private int id;
     private String model;
-    private String brandName;
+    @JsonIgnore
+    private BrandDTO brandDTO;
+//    private String brandName;
     @NotBlank(message = "Name is required and must not be blank")
     private String description;
-    private Integer price;
+    private int price;
     private Integer ramGb;
     private Double screenSizeInch;
-
     @Min(0)
     @NotNull(message = "Quantity is required")
     private int quantity;
-
     private Integer storageGb;
     private String color;
+    private LocalDateTime  createOn;
+    private LocalDateTime updateOn;
 
 
+
+    private String getBrandName(){
+        return brandDTO.getName();
+    }
 
 }
