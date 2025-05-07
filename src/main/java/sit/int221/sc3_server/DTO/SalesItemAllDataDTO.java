@@ -4,11 +4,11 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Data
-public class SalesItemDetailDTO {
+public class SalesItemAllDataDTO {
     private int id;
     private String model;
     private String brandName;
@@ -22,4 +22,6 @@ public class SalesItemDetailDTO {
     private int quantity;
     private Integer storageGb;
     private String color;
+    private LocalDateTime  createOn;
+    private LocalDateTime updateOn;
 }
