@@ -21,4 +21,18 @@ public class SalesItemCreateAndUpdate {
     private Integer storageGb;
     private String color;
 
+
+
+    public void setModel(String model) {
+        this.model = model.trim();
+    }
+
+
+    public void setDescription(String description) {
+        this.description = description.trim();
+    }
+
+    public void setColor(String color){
+        this.color = color != null ? color.trim():null;
+    }
 }

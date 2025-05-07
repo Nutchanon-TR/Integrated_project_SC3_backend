@@ -3,6 +3,7 @@ package sit.int221.sc3_server.controller;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sit.int221.sc3_server.DTO.SalesItemAllDataDTO;
@@ -39,10 +40,18 @@ public class ProductController {
         return ResponseEntity.ok().body(modelMapper.map(productServices.getProductById(id), SalesItemDetailDTO.class));
     }
 
+
+    @PostMapping("/sale-items")
+    public ResponseEntity<SalesItemAllDataDTO> createSaleItem(@RequestBody @Valid SalesItemCreateAndUpdate salesItemCreateAndUpdate){
+        Product product = productServices.createProduct(salesItemCreateAndUpdate);
+        return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(product,SalesItemAllDataDTO.class));
+    }
+
     @PutMapping("/sale-items/{id}")
     public ResponseEntity<SalesItemAllDataDTO> updateSaleItem(@PathVariable int id, @RequestBody @Valid SalesItemCreateAndUpdate productDto){
         Product product = productServices.updateProduct(id, productDto);
         return ResponseEntity.ok().body(modelMapper.map(product, SalesItemAllDataDTO.class));
     }
+
 
 }
