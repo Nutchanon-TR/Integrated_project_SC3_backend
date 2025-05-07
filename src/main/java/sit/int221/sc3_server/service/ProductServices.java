@@ -24,19 +24,28 @@ public class ProductServices {
 
     public List<Product> getAllProduct() {
         return productRepository.findAll();
+
 //        return productRepository.findAllByOrderByCreatedOnDesc();
+
     }
 
+//    public Product getProductById(int id) {
+//        return productRepository.findById(id).orElseThrow(
+//                () -> new ItemNotFoundException("SaleItem not found for this id :: " + id)
+//        );
+//    }
     public Product getProductById(int id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("SaleItem not found for this id :: " + id));
         if (product.getDescription() != null) {
+
             String cleaned = product.getDescription().replaceAll("[\\n\\r\\u00A0\\u200B]", "").trim();
             product.setDescription(cleaned);
         }
         return product;
     }
 
+<<<<<<< HEAD
     public Product updateProduct(int id, SalesItemCreateAndUpdate newProduct) {
         Product existing = productRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("Product ID not found"));
@@ -46,4 +55,6 @@ public class ProductServices {
 //        updated.setUpdatedOn(Instant.now());
         return productRepository.saveAndFlush(updated);
     }
+=======
+>>>>>>> 4a5ebf68b28161fd8130c84f850a0bbd365f397a
 }
