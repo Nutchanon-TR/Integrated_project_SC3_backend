@@ -14,7 +14,8 @@ public class ProductServices {
     private ProductRepository productRepository;
 
     public List<Product> getAllProduct() {
-        return productRepository.findAllByOrderByCreatedOnDesc();
+        return productRepository.findAll();
+//        return productRepository.findAllByOrderByCreatedOnDesc();
     }
 
     public Product getProductById(int id) {
