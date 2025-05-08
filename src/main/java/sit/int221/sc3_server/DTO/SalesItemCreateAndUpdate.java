@@ -4,16 +4,12 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import sit.int221.sc3_server.entity.Product;
 
 @Data
-public class SalesItemDetailDTO {
+public class SalesItemCreateAndUpdate {
     private int id;
     private String model;
-    private String brandName;
+    private BrandDTO brand;
     @NotBlank(message = "Name is required and must not be blank")
     private String description;
     private int price;
