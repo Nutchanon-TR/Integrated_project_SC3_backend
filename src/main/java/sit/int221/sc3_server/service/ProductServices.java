@@ -50,9 +50,10 @@ public class ProductServices {
         return product;
     }
 
-    public Product createProduct(SalesItemCreateAndUpdate salesItemCreateAndUpdate) {
-        if (productRepository.existsById(salesItemCreateAndUpdate.getId())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "SaleItem " + salesItemCreateAndUpdate.getId() + "already exists ");
+
+    public  Product createProduct(SalesItemCreateAndUpdate salesItemCreateAndUpdate){
+        if(productRepository.existsById(salesItemCreateAndUpdate.getId())){
+            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST,"SaleItem "+ salesItemCreateAndUpdate.getId() + "already exists ");
         }
         int brandId = salesItemCreateAndUpdate.getBrand().getId();
         Brand brand = brandRepository.findById(brandId)
@@ -62,6 +63,7 @@ public class ProductServices {
         product.setBrand(brand);
         return productRepository.saveAndFlush(product);
     }
+
 
 
     public Product updateProduct(int id, SalesItemCreateAndUpdate newProduct) {
@@ -82,6 +84,12 @@ public class ProductServices {
             throw new UpdateFailedException("SaleItem " + id + " not updated");
         }
     }
-
+    
+    public Product deleteProduct(int id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ItemNotFoundException("Product ID not found"));
+        productRepository.deleteById(id);
+        return product;
+    }
 
 }
