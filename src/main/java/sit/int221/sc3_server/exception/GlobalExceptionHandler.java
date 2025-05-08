@@ -19,4 +19,15 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ger);
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleInternalException(Exception e,HttpServletRequest httpServletRequest){
+        GeneralErrorResponse ger = new GeneralErrorResponse(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                "Sale item create failed",
+                e.getMessage(),
+                httpServletRequest.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ger);
+    }
 }

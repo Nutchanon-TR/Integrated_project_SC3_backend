@@ -29,10 +29,6 @@ public class Product {
     @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
 
-    @Transient
-    public Integer getBrandId() {
-        return brand != null ? brand.getId() : null;
-    }
 
     @Size(max = 60)
     @NotNull
@@ -69,7 +65,9 @@ public class Product {
     @Column(name = "createdOn", nullable = false, updatable = false, columnDefinition = "DATETIME")
     private LocalDateTime createdOn;
 
+
     @UpdateTimestamp
     @Column(name = "updatedOn", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime updatedOn;
+
 }

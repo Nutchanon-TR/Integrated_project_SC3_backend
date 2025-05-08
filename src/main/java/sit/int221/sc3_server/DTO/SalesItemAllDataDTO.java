@@ -1,5 +1,6 @@
 package sit.int221.sc3_server.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -11,7 +12,9 @@ import java.time.LocalDateTime;
 public class SalesItemAllDataDTO {
     private int id;
     private String model;
-    private String brandName;
+    @JsonIgnore
+    private BrandDTO brandDTO;
+//    private String brandName;
     @NotBlank(message = "Name is required and must not be blank")
     private String description;
     private int price;
@@ -24,4 +27,11 @@ public class SalesItemAllDataDTO {
     private String color;
     private LocalDateTime  createOn;
     private LocalDateTime updateOn;
+
+
+
+    private String getBrandName(){
+        return brandDTO.getName();
+    }
+
 }

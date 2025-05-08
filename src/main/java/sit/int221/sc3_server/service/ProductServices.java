@@ -2,7 +2,11 @@ package sit.int221.sc3_server.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+import sit.int221.sc3_server.DTO.SalesItemAllDataDTO;
+import sit.int221.sc3_server.DTO.SalesItemDetailDTO;
 import sit.int221.sc3_server.DTO.SalesItemCreateAndUpdate;
 import sit.int221.sc3_server.DTO.SalesItemDetailDTO;
 import sit.int221.sc3_server.entity.Brand;
@@ -18,9 +22,13 @@ import java.util.List;
 public class ProductServices {
     @Autowired
     private ProductRepository productRepository;
-    private BrandRepository brandRepository;
+
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private BrandRepository brandRepository;
+
 
     public List<Product> getAllProduct() {
         return productRepository.findAll();
@@ -44,6 +52,25 @@ public class ProductServices {
         }
         return product;
     }
+
+
+
+
+    public  Product createProduct(SalesItemCreateAndUpdate salesItemCreateAndUpdate){
+        if(productRepository.existsById(salesItemCreateAndUpdate.getId())){
+            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST,"SaleItem "+ salesItemCreateAndUpdate.getId() + "already exists ");
+        }
+        int brandId = salesItemCreateAndUpdate.getBrand().getId();
+        Brand brand = brandRepository.findById(brandId)
+                .orElseThrow(() -> new ItemNotFoundException("Brand not found"));
+
+        Product product =  modelMapper.map(salesItemCreateAndUpdate,Product.class );
+        product.setBrand(brand);
+       return productRepository.saveAndFlush(product);
+    }
+
+
+
     public Product updateProduct(int id, SalesItemCreateAndUpdate newProduct) {
         Product existing = productRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("Product ID not found"));
@@ -53,6 +80,7 @@ public class ProductServices {
 //        updated.setUpdatedOn(Instant.now());
         return productRepository.saveAndFlush(updated);
     }
+
 
     public Product deleteProduct(int id) {
         Product product = productRepository.findById(id)

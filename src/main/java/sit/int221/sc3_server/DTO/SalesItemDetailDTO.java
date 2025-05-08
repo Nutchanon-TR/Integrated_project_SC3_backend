@@ -9,20 +9,26 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import sit.int221.sc3_server.entity.Product;
 
+
 @Data
+
 public class SalesItemDetailDTO {
     private int id;
     private String model;
     private String brandName;
     @NotBlank(message = "Name is required and must not be blank")
     private String description;
-    private int price;
+    private Integer price;
     private Integer ramGb;
     private Double screenSizeInch;
+
     @Min(0)
     @NotNull(message = "Quantity is required")
     private int quantity;
+
     private Integer storageGb;
     private String color;
+
+
 
 }
