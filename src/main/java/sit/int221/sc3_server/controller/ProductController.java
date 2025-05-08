@@ -50,6 +50,8 @@ public class ProductController {
     @PutMapping("/sale-items/{id}")
     public ResponseEntity<SalesItemAllDataDTO> updateSaleItem(@PathVariable int id, @RequestBody @Valid SalesItemCreateAndUpdate productDto){
         Product product = productServices.updateProduct(id, productDto);
+//        System.out.println(product.getUpdatedOn());
+//        System.out.println(product.getCreatedOn());
         return ResponseEntity.ok().body(modelMapper.map(product, SalesItemAllDataDTO.class));
     }
 
