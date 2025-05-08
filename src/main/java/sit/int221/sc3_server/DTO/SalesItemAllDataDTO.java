@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 public class SalesItemAllDataDTO {
     private int id;
     private String model;
-    @JsonIgnore
-    private BrandDTO brandDTO;
-//    private String brandName;
+//    @JsonIgnore
+//    private BrandDTO brandDTO;
+    private String brandName;
     @NotBlank(message = "Name is required and must not be blank")
     private String description;
     private int price;
@@ -25,13 +25,11 @@ public class SalesItemAllDataDTO {
     private int quantity;
     private Integer storageGb;
     private String color;
-    private LocalDateTime  createOn;
-    private LocalDateTime updateOn;
+    private LocalDateTime  createdOn;
+    private LocalDateTime updatedOn;
 
-
-
-    private String getBrandName(){
-        return brandDTO.getName();
-    }
+//    private String getBrandName(){
+//        return brandDTO.getName();
+//    }
 
 }

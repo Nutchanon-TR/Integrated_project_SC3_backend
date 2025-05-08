@@ -74,7 +74,7 @@ public class ProductServices {
                 .orElseThrow(() -> new ItemNotFoundException("Product ID not found"));
         Product updated = modelMapper.map(newProduct, Product.class);
         updated.setId(existing.getId());
-//        updated.setCreatedOn(existing.getCreatedOn());
+        updated.setCreatedOn(existing.getCreatedOn());
 //        updated.setUpdatedOn(Instant.now());
         return productRepository.saveAndFlush(updated);
     }
