@@ -28,6 +28,7 @@ public class SalesItemAllDataDTO {
     private LocalDateTime  createdOn;
     private LocalDateTime updatedOn;
 
+
 //    private String getBrandName(){
 //        return brandDTO.getName();
 //    }
