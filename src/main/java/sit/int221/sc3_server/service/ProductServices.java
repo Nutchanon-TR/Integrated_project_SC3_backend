@@ -9,6 +9,7 @@ import sit.int221.sc3_server.DTO.SalesItemCreateAndUpdate;
 import sit.int221.sc3_server.DTO.SalesItemDetailDTO;
 import sit.int221.sc3_server.entity.Brand;
 import sit.int221.sc3_server.entity.Product;
+import sit.int221.sc3_server.exception.CreateFailedException;
 import sit.int221.sc3_server.exception.ItemNotFoundException;
 import sit.int221.sc3_server.exception.UpdateFailedException;
 import sit.int221.sc3_server.repository.BrandRepository;
@@ -58,10 +59,15 @@ public class ProductServices {
         int brandId = salesItemCreateAndUpdate.getBrand().getId();
         Brand brand = brandRepository.findById(brandId)
                 .orElseThrow(() -> new ItemNotFoundException("Brand not found"));
+        try{
+            Product product = modelMapper.map(salesItemCreateAndUpdate, Product.class);
+            product.setBrand(brand);
+            return productRepository.saveAndFlush(product);
+        }catch (Exception e){
+            throw new CreateFailedException("Cannot create SaleItem" + salesItemCreateAndUpdate.getId() + " due to internal error");
+        }
 
-        Product product = modelMapper.map(salesItemCreateAndUpdate, Product.class);
-        product.setBrand(brand);
-        return productRepository.saveAndFlush(product);
+
     }
 
 
@@ -83,6 +89,7 @@ public class ProductServices {
         } catch (Exception e) {
             throw new UpdateFailedException("SaleItem " + id + " not updated");
         }
+
     }
     
     public Product deleteProduct(int id) {

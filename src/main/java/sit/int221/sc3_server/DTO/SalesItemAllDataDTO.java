@@ -26,7 +26,7 @@ public class SalesItemAllDataDTO {
     private Integer storageGb;
     private String color;
     private LocalDateTime  createdOn;
-    private LocalDateTime  updatedOn;
+    private LocalDateTime updatedOn;
 
 
 //    private String getBrandName(){
