@@ -53,5 +53,11 @@ public class ProductController {
         return ResponseEntity.ok().body(modelMapper.map(product, SalesItemAllDataDTO.class));
     }
 
+    @DeleteMapping("/sale-items/{id}")
+    public ResponseEntity<SalesItemAllDataDTO> deleteSaleItem(@PathVariable int id){
+        productServices.deleteProduct(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }

@@ -55,6 +55,7 @@ public class ProductServices {
 
 
 
+
     public  Product createProduct(SalesItemCreateAndUpdate salesItemCreateAndUpdate){
         if(productRepository.existsById(salesItemCreateAndUpdate.getId())){
             throw  new ResponseStatusException(HttpStatus.BAD_REQUEST,"SaleItem "+ salesItemCreateAndUpdate.getId() + "already exists ");
@@ -69,6 +70,7 @@ public class ProductServices {
     }
 
 
+
     public Product updateProduct(int id, SalesItemCreateAndUpdate newProduct) {
         Product existing = productRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("Product ID not found"));
@@ -77,6 +79,14 @@ public class ProductServices {
         updated.setCreatedOn(existing.getCreatedOn());
 //        updated.setUpdatedOn(Instant.now());
         return productRepository.saveAndFlush(updated);
+    }
+
+
+    public Product deleteProduct(int id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ItemNotFoundException("Product ID not found"));
+        productRepository.deleteById(id);
+        return product;
     }
 
 }
