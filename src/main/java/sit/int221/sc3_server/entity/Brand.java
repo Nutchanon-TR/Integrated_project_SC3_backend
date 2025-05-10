@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -41,14 +42,13 @@ public class Brand {
 
     @NotNull
     @Column(name = "createdOn", nullable = false)
-    private Instant createdOn;
+    private LocalDateTime createdOn;
 
     @NotNull
     @Column(name = "updatedOn", nullable = false)
-    private Instant updatedOn;
+    private LocalDateTime updatedOn;
 
     @OneToMany(mappedBy = "brand")
     @JsonIgnore
     private Set<Product> products = new LinkedHashSet<>();
-
 }
