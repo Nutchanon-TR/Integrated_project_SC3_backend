@@ -66,11 +66,7 @@ public class ProductServices {
         }catch (Exception e){
             throw new CreateFailedException("Cannot create SaleItem" + salesItemCreateAndUpdate.getId() + " due to internal error");
         }
-
-
     }
-
-
 
     public Product updateProduct(int id, SalesItemCreateAndUpdate newProduct) {
         Product existing = productRepository.findById(id)
@@ -83,7 +79,8 @@ public class ProductServices {
             Product updated = modelMapper.map(newProduct, Product.class);
             updated.setId(existing.getId());
             updated.setCreatedOn(existing.getCreatedOn());
-            updated.setUpdatedOn(LocalDateTime.now());
+//            updated.setUpdatedOn(LocalDateTime.now());
+            updated.setUpdatedOn(Instant.now());
 
             return productRepository.saveAndFlush(updated);
         } catch (Exception e) {

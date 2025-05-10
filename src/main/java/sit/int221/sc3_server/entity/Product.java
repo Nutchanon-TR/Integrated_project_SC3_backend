@@ -63,11 +63,11 @@ public class Product {
 
     @CreationTimestamp
     @Column(name = "createdOn", nullable = false, updatable = false, columnDefinition = "DATETIME")
-    private LocalDateTime createdOn;
+    private Instant createdOn;
 
 
     @UpdateTimestamp
     @Column(name = "updatedOn", nullable = false, columnDefinition = "DATETIME")
-    private LocalDateTime updatedOn;
+    private Instant updatedOn;
 
 }
