@@ -25,8 +25,8 @@ public class SalesItemAllDataDTO {
     private int quantity;
     private Integer storageGb;
     private String color;
-    private LocalDateTime  createOn;
-    private LocalDateTime updateOn;
+    private LocalDateTime  createdOn;
+    private LocalDateTime updatedOn;
 
 
 
