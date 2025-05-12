@@ -11,6 +11,7 @@ import sit.int221.sc3_server.entity.Brand;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -60,11 +61,19 @@ public class Product {
 
     @CreationTimestamp
     @Column(name = "createdOn", nullable = false, updatable = false, columnDefinition = "DATETIME")
-    private Instant createdOn;
+    private LocalDateTime createdOn;
+//
+//
+//    @UpdateTimestamp
+//    @Column(name = "updatedOn", nullable = false, columnDefinition = "DATETIME")
+//    private LocalDateTime updatedOn;
 
+//    @CreationTimestamp
+//    @Column(name = "createdOn", nullable = false, updatable = false)
+//    private LocalDateTime createdOn;
 
     @UpdateTimestamp
-    @Column(name = "updatedOn", nullable = false, columnDefinition = "DATETIME")
-    private Instant updatedOn;
+    @Column(name = "updatedOn", nullable = false)
+    private LocalDateTime updatedOn;
 
 }

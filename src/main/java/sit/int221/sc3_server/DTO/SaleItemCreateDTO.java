@@ -13,6 +13,7 @@ public class SaleItemCreateDTO {
     private BrandDTO brand;
     @NotEmpty(message = "Name is required and must not be Empty")
     private String description;
+    @Min(1)
     @NotNull
     private int price;
     private Integer ramGb;
@@ -33,6 +34,8 @@ public class SaleItemCreateDTO {
 
     public void setColor(String color) {
         if (color != null && color.trim().isEmpty()) {
+            this.color = null;
+        } else if (color == null) {
             this.color = null;
         } else {
             this.color = color.trim();

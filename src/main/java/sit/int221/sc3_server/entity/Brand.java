@@ -42,11 +42,11 @@ public class Brand {
 
     @NotNull
     @Column(name = "createdOn", nullable = false)
-    private Instant createdOn;
+    private LocalDateTime createdOn;
 
     @NotNull
     @Column(name = "updatedOn", nullable = false)
-    private Instant updatedOn;
+    private LocalDateTime updatedOn;
 
     @OneToMany(mappedBy = "brand")
     @JsonIgnore

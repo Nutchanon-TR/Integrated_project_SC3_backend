@@ -14,6 +14,7 @@ import sit.int221.sc3_server.repository.BrandRepository;
 import sit.int221.sc3_server.repository.ProductRepository;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -56,8 +57,8 @@ public class ProductServices {
         Product product = modelMapper.map(dto, Product.class);
 //        product.setId(0);
         product.setBrand(brand);
-        product.setCreatedOn(Instant.now());
-        product.setUpdatedOn(Instant.now());
+        product.setCreatedOn(LocalDateTime.now());
+        product.setUpdatedOn(LocalDateTime.now());
         try {
             return productRepository.saveAndFlush(product);
         } catch (Exception e) {
@@ -79,9 +80,8 @@ public class ProductServices {
             Product updated = modelMapper.map(newProduct, Product.class);
             updated.setId(existing.getId());
             updated.setCreatedOn(existing.getCreatedOn());
-//            updated.setUpdatedOn(LocalDateTime.now());
-            updated.setUpdatedOn(Instant.now());
-
+            updated.setUpdatedOn(LocalDateTime.now());
+//            updated.setUpdatedOn(Instant.now());
             return productRepository.saveAndFlush(updated);
         } catch (Exception e) {
             throw new UpdateFailedException("SaleItem " + id + " not updated");
