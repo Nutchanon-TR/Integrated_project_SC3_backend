@@ -1,14 +1,12 @@
 package sit.int221.sc3_server.DTO;
 
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class SalesItemCreateAndUpdate {
-    private int id;
+public class SaleItemCreateDTO {
     @NotEmpty
     private String model;
     @NotNull
