@@ -2,20 +2,23 @@ package sit.int221.sc3_server.DTO;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class SalesItemCreateAndUpdate {
     private int id;
+    @NotEmpty
     private String model;
+    @NotNull
     private BrandDTO brand;
-    @NotBlank(message = "Name is required and must not be blank")
+    @NotEmpty(message = "Name is required and must not be Empty")
     private String description;
+    @NotNull
     private int price;
     private Integer ramGb;
     private Double screenSizeInch;
-    @Min(0)
     @NotNull(message = "Quantity is required")
     private int quantity;
     private Integer storageGb;
@@ -31,6 +34,8 @@ public class SalesItemCreateAndUpdate {
 
     public void setColor(String color) {
         if (color != null && color.trim().isEmpty()) {
+            this.color = null;
+        } else if (color == null || color.trim().isEmpty()) {
             this.color = null;
         } else {
             this.color = color.trim();
