@@ -18,7 +18,6 @@ import sit.int221.sc3_server.repository.ProductRepository;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
-@Transactional(propagation = Propagation.REQUIRES_NEW)
 @Service
 public class ProductServices {
     @Autowired
@@ -59,8 +58,8 @@ public class ProductServices {
         Product product = modelMapper.map(dto, Product.class);
 //        product.setId(0);
         product.setBrand(brand);
-        product.setCreatedOn(LocalDateTime.now());
-        product.setUpdatedOn(LocalDateTime.now());
+//        product.setCreatedOn(LocalDateTime.now());
+//        product.setUpdatedOn(LocalDateTime.now());
         try {
             return productRepository.saveAndFlush(product);
         } catch (Exception e) {
@@ -70,7 +69,7 @@ public class ProductServices {
         }
     }
 
-
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Product updateProduct(int id, SalesItemCreateAndUpdate newProduct) {
         Product existing = productRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("Sale Item Not Found by Id"));
@@ -87,15 +86,13 @@ public class ProductServices {
 //            LocalDateTime plusYear = now.plusYears(543);
 //            updated.setCreatedOn(plusYear);
 
-            updated.setUpdatedOn(LocalDateTime.now());
+//            updated.setUpdatedOn(LocalDateTime.now());
+//            System.out.println(LocalDateTime.now());
 //            updated.setUpdatedOn(Instant.now());
             return productRepository.saveAndFlush(updated);
         } catch (Exception e) {
             throw new UpdateFailedException("SaleItem " + id + " not updated");
         }
-
-
-
     }
     
     public Product deleteProduct(int id) {

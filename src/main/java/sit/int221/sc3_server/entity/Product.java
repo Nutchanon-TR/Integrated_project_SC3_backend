@@ -63,11 +63,11 @@ public class Product {
 
     @CreationTimestamp
     @Column(name = "createdOn", nullable = false, updatable = false, columnDefinition = "DATETIME")
-    private LocalDateTime createdOn;
+    private LocalDateTime  createdOn;
 
     @UpdateTimestamp
-    @Column(name = "updatedOn", nullable = false, columnDefinition = "DATETIME")
-    private LocalDateTime updatedOn;
+    @Column(name = "updatedOn", nullable = false )
+    private LocalDateTime  updatedOn;
 
 //    @CreationTimestamp
 //    @Column(name = "createdOn", nullable = false, updatable = false)
@@ -90,9 +90,10 @@ public class Product {
 //    @Column(name = "createdOn")
 //    private LocalDateTime createdOn;
 //
-//    @LastModifiedDate
+//
 //    @Column(name = "updatedOn")
 //    private LocalDateTime updatedOn;
+
 
 
 }
