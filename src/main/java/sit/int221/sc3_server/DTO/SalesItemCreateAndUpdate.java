@@ -21,18 +21,27 @@ public class SalesItemCreateAndUpdate {
     private Integer storageGb;
     private String color;
 
+    public void setQuantity(Integer quantity) {
+        if (quantity == null || quantity < 0) {
+            this.quantity = 1;
+        } else {
+            this.quantity = quantity;
+        }
+    }
 
+    public void setColor(String color) {
+        if (color != null && color.trim().isEmpty()) {
+            this.color = null;
+        } else {
+            this.color = color.trim();
+        }
+    }
 
     public void setModel(String model) {
         this.model = model.trim();
     }
 
-
     public void setDescription(String description) {
         this.description = description.trim();
-    }
-
-    public void setColor(String color){
-        this.color = color != null ? color.trim():null;
     }
 }
