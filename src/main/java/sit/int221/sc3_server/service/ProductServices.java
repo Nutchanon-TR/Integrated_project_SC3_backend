@@ -3,6 +3,8 @@ package sit.int221.sc3_server.service;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import sit.int221.sc3_server.DTO.SaleItemCreateDTO;
 import sit.int221.sc3_server.DTO.SalesItemCreateAndUpdate;
 import sit.int221.sc3_server.entity.Brand;
@@ -16,7 +18,7 @@ import sit.int221.sc3_server.repository.ProductRepository;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
-
+@Transactional(propagation = Propagation.REQUIRES_NEW)
 @Service
 public class ProductServices {
     @Autowired
@@ -80,12 +82,19 @@ public class ProductServices {
             Product updated = modelMapper.map(newProduct, Product.class);
             updated.setId(existing.getId());
             updated.setCreatedOn(existing.getCreatedOn());
+
+//            LocalDateTime now = existing.getCreatedOn();
+//            LocalDateTime plusYear = now.plusYears(543);
+//            updated.setCreatedOn(plusYear);
+
             updated.setUpdatedOn(LocalDateTime.now());
 //            updated.setUpdatedOn(Instant.now());
             return productRepository.saveAndFlush(updated);
         } catch (Exception e) {
             throw new UpdateFailedException("SaleItem " + id + " not updated");
         }
+
+
 
     }
     

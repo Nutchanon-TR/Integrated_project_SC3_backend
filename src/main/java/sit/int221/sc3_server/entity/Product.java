@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import sit.int221.sc3_server.entity.Brand;
 
 import java.math.BigDecimal;
@@ -62,18 +64,35 @@ public class Product {
     @CreationTimestamp
     @Column(name = "createdOn", nullable = false, updatable = false, columnDefinition = "DATETIME")
     private LocalDateTime createdOn;
-//
-//
-//    @UpdateTimestamp
-//    @Column(name = "updatedOn", nullable = false, columnDefinition = "DATETIME")
-//    private LocalDateTime updatedOn;
+
+    @UpdateTimestamp
+    @Column(name = "updatedOn", nullable = false, columnDefinition = "DATETIME")
+    private LocalDateTime updatedOn;
 
 //    @CreationTimestamp
 //    @Column(name = "createdOn", nullable = false, updatable = false)
 //    private LocalDateTime createdOn;
 
-    @UpdateTimestamp
-    @Column(name = "updatedOn", nullable = false)
-    private LocalDateTime updatedOn;
+//    @UpdateTimestamp
+//    @Column(name = "updatedOn", nullable = false)
+//    private LocalDateTime updatedOn;
+
+
+//    @CreationTimestamp
+//    @Column(updatable = false)
+//    private LocalDateTime createdOn;
+//
+//    @UpdateTimestamp
+//    private LocalDateTime updatedOn;
+
+
+//    @CreatedDate
+//    @Column(name = "createdOn")
+//    private LocalDateTime createdOn;
+//
+//    @LastModifiedDate
+//    @Column(name = "updatedOn")
+//    private LocalDateTime updatedOn;
+
 
 }
