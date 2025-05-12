@@ -13,7 +13,6 @@ public class BrandServices {
     private BrandRepository brandRepository;
 
     public List<Brand> getAllBrand() {
-
         return brandRepository.findAll();
     }
 }
