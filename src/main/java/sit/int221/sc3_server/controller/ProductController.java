@@ -47,6 +47,13 @@ public class ProductController {
     }
 
 
+//    @PutMapping("/sale-items/{id}")
+//    public ResponseEntity<SalesItemAllDataDTO> updateSaleItem(@PathVariable int id, @RequestBody @Valid SaleItemCreateDTO productDto){
+//        SalesItemAllDataDTO product = productServices.updateProduct02(id,productDto);
+////        System.out.println(product.getUpdatedOn());
+////        System.out.println(product.getCreatedOn());
+//        return ResponseEntity.ok().body(modelMapper.map(product, SalesItemAllDataDTO.class));
+//    }
     @PutMapping("/sale-items/{id}")
     public ResponseEntity<SalesItemAllDataDTO> updateSaleItem(@PathVariable int id, @RequestBody @Valid SalesItemCreateAndUpdate productDto){
         Product product = productServices.updateProduct(id, productDto);
@@ -54,6 +61,22 @@ public class ProductController {
 //        System.out.println(product.getCreatedOn());
         return ResponseEntity.ok().body(modelMapper.map(product, SalesItemAllDataDTO.class));
     }
+
+//    @PostMapping("/sale-items")
+//    public ResponseEntity<SalesItemAllDataDTO> createSaleItem(@RequestBody @Valid SaleItemCreateDTO saleItemCreateDTO) {
+//        SalesItemAllDataDTO responseDto = productServices.createProduct02(saleItemCreateDTO);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+//    }
+
+
+//    @PutMapping("/sale-items/{id}")
+//    public ResponseEntity<SalesItemAllDataDTO> updateSaleItem02(
+//            @PathVariable int id,
+//            @RequestBody @Valid SalesItemCreateAndUpdate productDto) {
+//
+//        SalesItemAllDataDTO updated = productServices.updateProduct03(id,productDto);
+//        return ResponseEntity.ok(updated);
+//    }
 
     @DeleteMapping("/sale-items/{id}")
     public ResponseEntity<SalesItemAllDataDTO> deleteSaleItem(@PathVariable int id){

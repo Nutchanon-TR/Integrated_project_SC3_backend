@@ -67,6 +67,11 @@ public class Product {
     @Column(name = "updatedOn", nullable = false )
     private LocalDateTime  updatedOn;
 
+    @PreUpdate
+    public void touchUpdatedOn() {
+        this.updatedOn = LocalDateTime.now();
+    }
+
     //    @CreationTimestamp
 //    @Column(name = "createdOn", nullable = false, updatable = false)
 //    private LocalDateTime createdOn;
