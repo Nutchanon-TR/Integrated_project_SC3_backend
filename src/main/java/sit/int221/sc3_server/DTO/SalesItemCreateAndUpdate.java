@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 public class SalesItemCreateAndUpdate {
-    private int id;
+    private Integer id;
     @NotEmpty
     private String model;
     @NotNull

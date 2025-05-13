@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 public class Product {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull
@@ -66,4 +67,28 @@ public class Product {
     @Column(name = "updatedOn", nullable = false )
     private LocalDateTime  updatedOn;
 
+    //    @CreationTimestamp
+//    @Column(name = "createdOn", nullable = false, updatable = false)
+//    private LocalDateTime createdOn;
+
+//    @UpdateTimestamp
+//    @Column(name = "updatedOn", nullable = false)
+//    private LocalDateTime updatedOn;
+
+
+//    @CreationTimestamp
+//    @Column(updatable = false)
+//    private LocalDateTime createdOn;
+//
+//    @UpdateTimestamp
+//    private LocalDateTime updatedOn;
+
+
+//    @CreatedDate
+//    @Column(name = "createdOn")
+//    private LocalDateTime createdOn;
+//
+//
+//    @Column(name = "updatedOn")
+//    private LocalDateTime updatedOn;
 }
