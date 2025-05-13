@@ -7,16 +7,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import sit.int221.sc3_server.DTO.SaleItemCreateDTO;
 import sit.int221.sc3_server.DTO.SalesItemCreateAndUpdate;
-import sit.int221.sc3_server.entity.Brand;
-import sit.int221.sc3_server.entity.Product;
 import sit.int221.sc3_server.exception.CreateFailedException;
 import sit.int221.sc3_server.exception.ItemNotFoundException;
 import sit.int221.sc3_server.exception.UpdateFailedException;
 import sit.int221.sc3_server.repository.BrandRepository;
 import sit.int221.sc3_server.repository.ProductRepository;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.List;
 @Service
 public class ProductServices {
@@ -56,7 +52,6 @@ public class ProductServices {
         Brand brand = brandRepository.findById(brandId)
                 .orElseThrow(() -> new ItemNotFoundException("Brand with ID " + brandId + " not found."));
         Product product = modelMapper.map(dto, Product.class);
-//        product.setId(0);
         product.setBrand(brand);
 //        product.setCreatedOn(LocalDateTime.now());
 //        product.setUpdatedOn(LocalDateTime.now());

@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sit.int221.sc3_server.DTO.*;
-import sit.int221.sc3_server.entity.Product;
 import sit.int221.sc3_server.service.ProductServices;
 import sit.int221.sc3_server.utils.ListMapper;
 
@@ -41,10 +40,8 @@ public class ProductController {
     @PostMapping("/sale-items")
     public ResponseEntity<SalesItemAllDataDTO> createSaleItem(@RequestBody @Valid SaleItemCreateDTO saleItemCreateDTO) {
         Product product = productServices.createProduct(saleItemCreateDTO);
-
         SalesItemAllDataDTO responseDto = modelMapper.map(product, SalesItemAllDataDTO.class);
         responseDto.setBrandName(product.getBrand().getName());
-
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 

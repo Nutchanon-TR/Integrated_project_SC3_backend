@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import sit.int221.sc3_server.entity.Brand;
 
 import java.math.BigDecimal;
@@ -21,7 +19,6 @@ import java.time.LocalDateTime;
 @Table(name = "products")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -63,37 +60,10 @@ public class Product {
 
     @CreationTimestamp
     @Column(name = "createdOn", nullable = false, updatable = false, columnDefinition = "DATETIME")
-    private LocalDateTime  createdOn;
+    private LocalDateTime createdOn;
 
     @UpdateTimestamp
     @Column(name = "updatedOn", nullable = false )
     private LocalDateTime  updatedOn;
-
-//    @CreationTimestamp
-//    @Column(name = "createdOn", nullable = false, updatable = false)
-//    private LocalDateTime createdOn;
-
-//    @UpdateTimestamp
-//    @Column(name = "updatedOn", nullable = false)
-//    private LocalDateTime updatedOn;
-
-
-//    @CreationTimestamp
-//    @Column(updatable = false)
-//    private LocalDateTime createdOn;
-//
-//    @UpdateTimestamp
-//    private LocalDateTime updatedOn;
-
-
-//    @CreatedDate
-//    @Column(name = "createdOn")
-//    private LocalDateTime createdOn;
-//
-//
-//    @Column(name = "updatedOn")
-//    private LocalDateTime updatedOn;
-
-
 
 }

@@ -1,7 +1,5 @@
 package sit.int221.sc3_server.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -9,14 +7,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "Brand")
+@Table(name = "brand")
 public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +26,7 @@ public class Brand {
     private String name;
 
     @Size(max = 40)
-    @Column(name = "webSiteUrl", length = 40)
+    @Column(name = "websiteUrl", length = 40)
     private String websiteUrl;
 
     @NotNull
@@ -42,13 +39,13 @@ public class Brand {
 
     @NotNull
     @Column(name = "createdOn", nullable = false)
-    private LocalDateTime createdOn;
+    private Instant createdOn;
 
     @NotNull
     @Column(name = "updatedOn", nullable = false)
-    private LocalDateTime updatedOn;
+    private Instant updatedOn;
 
     @OneToMany(mappedBy = "brand")
-    @JsonIgnore
     private Set<Product> products = new LinkedHashSet<>();
+
 }
