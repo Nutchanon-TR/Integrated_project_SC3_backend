@@ -50,7 +50,7 @@ public class ProductServices {
         return product;
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+//    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Product createProduct(SaleItemCreateDTO dto) {
         int brandId = dto.getBrand().getId();
         Brand brand = brandRepository.findById(brandId)
@@ -69,7 +69,7 @@ public class ProductServices {
         }
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+//    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Product updateProduct(int id, SalesItemCreateAndUpdate newProduct) {
         Product existing = productRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("Sale Item Not Found by Id"));
@@ -77,22 +77,22 @@ public class ProductServices {
         brandRepository.findById(newProduct.getBrand().getId())
                 .orElseThrow(() -> new ItemNotFoundException("Brand not found"));
 
-        try {
+//        try {
             Product updated = modelMapper.map(newProduct, Product.class);
             updated.setId(existing.getId());
             updated.setCreatedOn(existing.getCreatedOn());
-
-//            LocalDateTime now = existing.getCreatedOn();
-//            LocalDateTime plusYear = now.plusYears(543);
-//            updated.setCreatedOn(plusYear);
+//            updated.setUpdatedOn(existing.getUpdatedOn());
 
 //            updated.setUpdatedOn(LocalDateTime.now());
 //            System.out.println(LocalDateTime.now());
 //            updated.setUpdatedOn(Instant.now());
+        System.out.println("Hello007");
+        System.out.println(updated.getUpdatedOn());
+        System.out.println(updated.getCreatedOn());
             return productRepository.saveAndFlush(updated);
-        } catch (Exception e) {
-            throw new UpdateFailedException("SaleItem " + id + " not updated");
-        }
+//        } catch (Exception e) {
+//            throw new UpdateFailedException("SaleItem " + id + " not updated");
+//        }
     }
     
     public Product deleteProduct(int id) {

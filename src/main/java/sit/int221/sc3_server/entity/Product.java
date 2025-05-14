@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
@@ -62,12 +63,12 @@ public class Product {
     private String color;
 
     @CreationTimestamp
-    @Column(name = "createdOn", nullable = false, updatable = false, columnDefinition = "DATETIME")
-    private LocalDateTime  createdOn;
+    @Column(name = "createdOn", nullable = false, updatable = false)
+    private Instant  createdOn;
 
     @UpdateTimestamp
     @Column(name = "updatedOn", nullable = false )
-    private LocalDateTime  updatedOn;
+    private Instant  updatedOn;
 
 //    @CreationTimestamp
 //    @Column(name = "createdOn", nullable = false, updatable = false)
@@ -80,10 +81,10 @@ public class Product {
 
 //    @CreationTimestamp
 //    @Column(updatable = false)
-//    private LocalDateTime createdOn;
+//    private Instant createdOn;
 //
 //    @UpdateTimestamp
-//    private LocalDateTime updatedOn;
+//    private Instant updatedOn;
 
 
 //    @CreatedDate
@@ -94,6 +95,40 @@ public class Product {
 //    @Column(name = "updatedOn")
 //    private LocalDateTime updatedOn;
 
+//    @ColumnDefault("CURRENT_TIMESTAMP")
+//    @Column(name = "createdOn")
+//    private LocalDateTime createdOn;
+//
+//    @ColumnDefault("CURRENT_TIMESTAMP")
+//    @Column(name = "updatedOn")
+//    private LocalDateTime updatedOn;
 
+//    @PrePersist
+//    public void prePersist() {
+//        if (createdOn == null) {
+//            createdOn = LocalDateTime.now();
+//        }
+//        if (updatedOn == null) {
+//            updatedOn = LocalDateTime.now();
+//        }
+//    }
+
+//    @ColumnDefault("CURRENT_TIMESTAMP")
+//    @Column(name = "createdOn", nullable = false)
+//    private LocalDateTime createdOn;
+//
+//    @ColumnDefault("CURRENT_TIMESTAMP")
+//    @Column(name = "updatedOn", nullable = false)
+//    private LocalDateTime updatedOn;
+//
+//    @PrePersist
+//    public void prePersist() {
+//        if (createdOn == null) {
+//            createdOn = LocalDateTime.now();
+//        }
+//        if (updatedOn == null) {
+//            updatedOn = LocalDateTime.now();
+//        }
+//    }
 
 }
