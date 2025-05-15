@@ -1,7 +1,5 @@
 package sit.int221.sc3_server.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -21,6 +19,7 @@ import java.time.LocalDateTime;
 @Table(name = "products")
 public class Product {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -28,7 +27,6 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
-
 
     @Size(max = 60)
     @NotNull
@@ -64,10 +62,18 @@ public class Product {
     @CreationTimestamp
     @Column(name = "createdOn", nullable = false, updatable = false, columnDefinition = "DATETIME")
     private LocalDateTime createdOn;
+//
+//
+//    @UpdateTimestamp
+//    @Column(name = "updatedOn", nullable = false, columnDefinition = "DATETIME")
+//    private LocalDateTime updatedOn;
 
+//    @CreationTimestamp
+//    @Column(name = "createdOn", nullable = false, updatable = false)
+//    private LocalDateTime createdOn;
 
     @UpdateTimestamp
-    @Column(name = "updatedOn", nullable = false, columnDefinition = "DATETIME")
+    @Column(name = "updatedOn", nullable = false)
     private LocalDateTime updatedOn;
 
 }

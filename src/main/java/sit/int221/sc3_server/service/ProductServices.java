@@ -2,11 +2,9 @@ package sit.int221.sc3_server.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
+import sit.int221.sc3_server.DTO.SaleItemCreateDTO;
 import sit.int221.sc3_server.DTO.SalesItemCreateAndUpdate;
-import sit.int221.sc3_server.DTO.SalesItemDetailDTO;
 import sit.int221.sc3_server.entity.Brand;
 import sit.int221.sc3_server.entity.Product;
 import sit.int221.sc3_server.exception.CreateFailedException;
@@ -52,24 +50,23 @@ public class ProductServices {
     }
 
 
-    public  Product createProduct(SalesItemCreateAndUpdate salesItemCreateAndUpdate){
-        if(productRepository.existsById(salesItemCreateAndUpdate.getId())){
-            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST,"SaleItem "+ salesItemCreateAndUpdate.getId() + "already exists ");
-        }
-        int brandId = salesItemCreateAndUpdate.getBrand().getId();
+    public Product createProduct(SaleItemCreateDTO dto) {
+        int brandId = dto.getBrand().getId();
         Brand brand = brandRepository.findById(brandId)
-                .orElseThrow(() -> new ItemNotFoundException("Brand not found"));
-        try{
-            Product product = modelMapper.map(salesItemCreateAndUpdate, Product.class);
-            product.setBrand(brand);
+                .orElseThrow(() -> new ItemNotFoundException("Brand with ID " + brandId + " not found."));
+        Product product = modelMapper.map(dto, Product.class);
+//        product.setId(0);
+        product.setBrand(brand);
+        product.setCreatedOn(LocalDateTime.now());
+        product.setUpdatedOn(LocalDateTime.now());
+        try {
             return productRepository.saveAndFlush(product);
-        }catch (Exception e){
-            throw new CreateFailedException("Cannot create SaleItem" + salesItemCreateAndUpdate.getId() + " due to internal error");
+        } catch (Exception e) {
+            throw new CreateFailedException(
+                    "Cannot create SaleItem due to: " + e.getMessage()
+            );
         }
-
-
     }
-
 
 
     public Product updateProduct(int id, SalesItemCreateAndUpdate newProduct) {
@@ -84,7 +81,7 @@ public class ProductServices {
             updated.setId(existing.getId());
             updated.setCreatedOn(existing.getCreatedOn());
             updated.setUpdatedOn(LocalDateTime.now());
-
+//            updated.setUpdatedOn(Instant.now());
             return productRepository.saveAndFlush(updated);
         } catch (Exception e) {
             throw new UpdateFailedException("SaleItem " + id + " not updated");

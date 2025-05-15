@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Data
@@ -25,7 +26,7 @@ public class SalesItemAllDataDTO {
     private int quantity;
     private Integer storageGb;
     private String color;
-    private LocalDateTime  createdOn;
+    private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
 
 

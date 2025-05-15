@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sit.int221.sc3_server.DTO.SalesItemAllDataDTO;
-import sit.int221.sc3_server.DTO.SalesItemCreateAndUpdate;
-import sit.int221.sc3_server.DTO.SalesItemDetailDTO;
-import sit.int221.sc3_server.DTO.salesItemDTO;
+import sit.int221.sc3_server.DTO.*;
 import sit.int221.sc3_server.entity.Product;
 import sit.int221.sc3_server.service.ProductServices;
 import sit.int221.sc3_server.utils.ListMapper;
@@ -42,10 +39,15 @@ public class ProductController {
 
 
     @PostMapping("/sale-items")
-    public ResponseEntity<SalesItemAllDataDTO> createSaleItem(@RequestBody @Valid SalesItemCreateAndUpdate salesItemCreateAndUpdate){
-        Product product = productServices.createProduct(salesItemCreateAndUpdate);
-        return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(product,SalesItemAllDataDTO.class));
+    public ResponseEntity<SalesItemAllDataDTO> createSaleItem(@RequestBody @Valid SaleItemCreateDTO saleItemCreateDTO) {
+        Product product = productServices.createProduct(saleItemCreateDTO);
+
+        SalesItemAllDataDTO responseDto = modelMapper.map(product, SalesItemAllDataDTO.class);
+        responseDto.setBrandName(product.getBrand().getName());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
+
 
     @PutMapping("/sale-items/{id}")
     public ResponseEntity<SalesItemAllDataDTO> updateSaleItem(@PathVariable int id, @RequestBody @Valid SalesItemCreateAndUpdate productDto){
@@ -60,6 +62,5 @@ public class ProductController {
         productServices.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
-
 
 }
