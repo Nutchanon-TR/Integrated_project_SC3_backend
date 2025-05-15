@@ -1,5 +1,6 @@
 package sit.int221.sc3_server.DTO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -26,12 +27,19 @@ public class SalesItemAllDataDTO {
     private int quantity;
     private Integer storageGb;
     private String color;
-    private LocalDateTime createdOn;
-    private LocalDateTime updatedOn;
+//    private LocalDateTime createdOn;
+//    private LocalDateTime updatedOn;
+//    private Instant createdOn;
+//    private Instant updatedOn;
 
 
 //    private String getBrandName(){
 //        return brandDTO.getName();
 //    }
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
+    private Instant createdOn;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
+    private Instant updatedOn;
 
 }

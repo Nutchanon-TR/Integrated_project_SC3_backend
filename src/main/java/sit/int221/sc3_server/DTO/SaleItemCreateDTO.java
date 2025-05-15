@@ -25,7 +25,7 @@ public class SaleItemCreateDTO {
     private String color;
 
     public void setQuantity(Integer quantity) {
-        if (quantity == null || quantity < 0) {
+        if (quantity == null || quantity <= 0) {
             this.quantity = 1;
         } else {
             this.quantity = quantity;

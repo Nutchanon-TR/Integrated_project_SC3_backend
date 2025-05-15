@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -42,13 +43,24 @@ public class Brand {
 
     @NotNull
     @Column(name = "createdOn", nullable = false)
-    private LocalDateTime createdOn;
+    private Instant createdOn;
 
     @NotNull
     @Column(name = "updatedOn", nullable = false)
-    private LocalDateTime updatedOn;
+    private Instant updatedOn;
 
     @OneToMany(mappedBy = "brand")
     @JsonIgnore
     private Set<Product> products = new LinkedHashSet<>();
+
+//    @ColumnDefault("CURRENT_TIMESTAMP")
+//    @Column(name = "createdOn", nullable = false)
+//    private Instant createdOn;
+//
+//    @ColumnDefault("CURRENT_TIMESTAMP")
+//    @Column(name = "updatedOn", nullable = false)
+//    private Instant updatedOn;
+//
+//    @OneToMany(mappedBy = "brand")
+//    private Set<Product> saleItems = new LinkedHashSet<>();
 }
