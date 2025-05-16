@@ -29,8 +29,8 @@ public class SalesItemAllDataDTO {
     private String color;
 //    private LocalDateTime createdOn;
 //    private LocalDateTime updatedOn;
-    private Instant createdOn;
-    private Instant updatedOn;
+    private String createdOn;
+    private String updatedOn;
 
 
 //    private String getBrandName(){

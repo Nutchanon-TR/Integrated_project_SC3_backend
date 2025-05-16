@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sit.int221.sc3_server.DTO.BrandDetailDTO;
 import sit.int221.sc3_server.entity.Brand;
-import sit.int221.sc3_server.entity.Product;
 import sit.int221.sc3_server.exception.ItemNotFoundException;
 import sit.int221.sc3_server.repository.BrandRepository;
 import sit.int221.sc3_server.repository.ProductRepository;
