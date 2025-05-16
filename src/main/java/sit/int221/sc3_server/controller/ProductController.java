@@ -47,21 +47,27 @@ public class ProductController {
     }
 
 
-//    @PutMapping("/sale-items/{id}")
-//    public ResponseEntity<SalesItemAllDataDTO> updateSaleItem(@PathVariable int id, @RequestBody @Valid SaleItemCreateDTO productDto){
-//        SalesItemAllDataDTO product = productServices.updateProduct02(id,productDto);
-////        System.out.println(product.getUpdatedOn());
-////        System.out.println(product.getCreatedOn());
-//        return ResponseEntity.ok().body(modelMapper.map(product, SalesItemAllDataDTO.class));
-//    }
+
     @PutMapping("/sale-items/{id}")
-    public ResponseEntity<SalesItemAllDataDTO> updateSaleItem(@PathVariable int id, @RequestBody @Valid SalesItemCreateAndUpdate productDto){
-        Product product = productServices.updateProduct(id, productDto);
+    public ResponseEntity<SalesItemAllDataDTO> updateSaleItem(@PathVariable int id, @RequestBody @Valid SaleItemCreateDTO productDto){
+        SalesItemAllDataDTO product = productServices.updateProduct02(id, productDto);
 //        System.out.println(product.getUpdatedOn());
 //        System.out.println(product.getCreatedOn());
-        return ResponseEntity.ok().body(modelMapper.map(product, SalesItemAllDataDTO.class));
+        return ResponseEntity.ok().body(product);
     }
 
+//    @PutMapping("/sale-items/{id}")
+//    public ResponseEntity<SalesItemAllDataDTO> updateSaleItem(
+//            @PathVariable int id,
+//            @RequestBody @Valid SaleItemCreateDTO productDto) {
+//
+//        Product updatedProduct = productServices.updateProduct05(id, productDto);
+//
+//        SalesItemAllDataDTO responseDto = modelMapper.map(updatedProduct, SalesItemAllDataDTO.class);
+//        responseDto.setBrandName(updatedProduct.getBrand().getName());
+//
+//        return ResponseEntity.ok().body(responseDto);
+//    }
 //    @PostMapping("/sale-items")
 //    public ResponseEntity<SalesItemAllDataDTO> createSaleItem(@RequestBody @Valid SaleItemCreateDTO saleItemCreateDTO) {
 //        SalesItemAllDataDTO responseDto = productServices.createProduct02(saleItemCreateDTO);

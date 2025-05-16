@@ -5,11 +5,13 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -27,8 +29,8 @@ public class Brand {
     private String name;
 
     @Size(max = 40)
-    @Column(name = "websiteUrl", length = 40)
-    private String websiteUrl;
+    @Column(name = "webSiteUrl", length = 40)
+    private String webSiteUrl;
 
     @NotNull
     @Column(name = "isActive", nullable = false)
@@ -38,15 +40,22 @@ public class Brand {
     @Column(name = "countryOfOrigin", length = 80)
     private String countryOfOrigin;
 
-    @NotNull
-    @Column(name = "createdOn", nullable = false)
-    private LocalDateTime createdOn;
+////    @CreatedDate
+//    @CreationTimestamp
+//    @Column(name = "createdOn")
+//    private LocalDateTime createdOn;
+//
+////    @LastModifiedDate
+//    @UpdateTimestamp
+//    @Column(name = "updatedOn")
+//    private LocalDateTime updatedOn;
 
-    @NotNull
-    @Column(name = "updatedOn", nullable = false)
-    private LocalDateTime updatedOn;
-
-    @OneToMany(mappedBy = "brand")
-    private Set<Product> products = new LinkedHashSet<>();
+//    @CreationTimestamp
+//    @Column(name = "createdOn", nullable = false, updatable = false)
+//    private Instant createdOn;
+//
+//    @UpdateTimestamp
+//    @Column(name = "updatedOn", nullable = false )
+//    private Instant  updatedOn;
 
 }

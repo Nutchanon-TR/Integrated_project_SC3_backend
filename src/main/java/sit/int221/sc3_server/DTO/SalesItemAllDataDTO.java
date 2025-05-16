@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDateTime;
 
@@ -20,16 +21,16 @@ public class SalesItemAllDataDTO {
     private String description;
     private int price;
     private Integer ramGb;
-    private Double screenSizeInch;
+    private BigDecimal screenSizeInch;
     @Min(0)
     @NotNull(message = "Quantity is required")
-    private int quantity;
+    private Integer quantity;
     private Integer storageGb;
     private String color;
-    private LocalDateTime createdOn;
-    private LocalDateTime updatedOn;
-//    private Instant createdOn;
-//    private Instant updatedOn;
+//    private LocalDateTime createdOn;
+//    private LocalDateTime updatedOn;
+    private Instant createdOn;
+    private Instant updatedOn;
 
 
 //    private String getBrandName(){

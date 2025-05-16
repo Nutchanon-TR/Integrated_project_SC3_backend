@@ -17,7 +17,8 @@ import sit.int221.sc3_server.exception.UpdateFailedException;
 import sit.int221.sc3_server.repository.BrandRepository;
 import sit.int221.sc3_server.repository.ProductRepository;
 
-import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 @Service
 public class ProductServices {
@@ -51,13 +52,15 @@ public class ProductServices {
         return product;
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+//    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Product createProduct(SaleItemCreateDTO dto) {
         int brandId = dto.getBrand().getId();
         Brand brand = brandRepository.findById(brandId)
                 .orElseThrow(() -> new ItemNotFoundException("Brand with ID " + brandId + " not found."));
         Product product = modelMapper.map(dto, Product.class);
         product.setBrand(brand);
+//        product.setCreatedOn(Instant.now());
+//        product.setUpdatedOn(Instant.now());
 //        product.setCreatedOn(LocalDateTime.now());
 //        product.setUpdatedOn(LocalDateTime.now());
         try {
@@ -95,14 +98,16 @@ public class ProductServices {
         Product existing = productRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("Sale Item Not Found by Id"));
 
-        brandRepository.findById(newProduct.getBrand().getId())
+        Brand brand =  brandRepository.findById(newProduct.getBrand().getId())
                 .orElseThrow(() -> new ItemNotFoundException("Brand not found"));
 
         try {
-            Product updated = modelMapper.map(newProduct, Product.class);
-            modelMapper.map(newProduct,existing);
-            updated.setId(existing.getId());
-            updated.setCreatedOn(existing.getCreatedOn());
+//            Product updated = modelMapper.map(newProduct, Product.class);
+                existing.setBrand(brand);
+                modelMapper.map(newProduct,existing);
+
+//            updated.setId(existing.getId());
+//            updated.setCreatedOn(existing.getCreatedOn());
 
 //            LocalDateTime now = existing.getCreatedOn();
 //            LocalDateTime plusYear = now.plusYears(543);
@@ -111,9 +116,9 @@ public class ProductServices {
 //            updated.setUpdatedOn(LocalDateTime.now());
 //            System.out.println(LocalDateTime.now());
 //            updated.setUpdatedOn(Instant.now());
-            return productRepository.saveAndFlush(updated);
+            return productRepository.saveAndFlush(existing);
         } catch (Exception e) {
-            throw new UpdateFailedException("SaleItem " + id + " not updated");
+            throw new UpdateFailedException("SaleItem " + id + " not updated" + e.getMessage());
         }
     }
 
@@ -132,9 +137,7 @@ public class ProductServices {
             existing.setPrice(newProduct.getPrice());
             existing.setQuantity(newProduct.getQuantity());
             existing.setRamGb(newProduct.getRamGb());
-            existing.setScreenSizeInch(
-                    newProduct.getScreenSizeInch() != null ? BigDecimal.valueOf(newProduct.getScreenSizeInch()) : null
-            );
+            existing.setScreenSizeInch(newProduct.getScreenSizeInch());
             existing.setStorageGb(newProduct.getStorageGb());
             existing.setColor(newProduct.getColor());
             existing.setBrand(brand); // ต้อง set brand object ให้ถูกต้อง
@@ -151,9 +154,13 @@ public class ProductServices {
         }
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public SalesItemAllDataDTO updateProduct02(int id, @Valid SaleItemCreateDTO newProduct){
         Product existing = productRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("Sale Item Not Found by Id"));
+        System.out.println("Before Save:");
+        System.out.println("createdOn = " + existing.getCreatedOn());
+        System.out.println("updatedOn = " + existing.getUpdatedOn());
         Brand brand = brandRepository.findById(newProduct.getBrand().getId())
                 .orElseThrow(() -> new ItemNotFoundException("Brand not found"));
         existing.setModel(newProduct.getModel());
@@ -161,16 +168,19 @@ public class ProductServices {
         existing.setPrice(newProduct.getPrice());
         existing.setQuantity(newProduct.getQuantity());
         existing.setRamGb(newProduct.getRamGb());
-        existing.setScreenSizeInch(
-                newProduct.getScreenSizeInch() != null ? BigDecimal.valueOf(newProduct.getScreenSizeInch()) : null
-        );
+        existing.setScreenSizeInch(newProduct.getScreenSizeInch());
         existing.setStorageGb(newProduct.getStorageGb());
         existing.setColor(newProduct.getColor());
         existing.setBrand(brand);
+//            modelMapper.map(newProduct, existing);
+
+
         try{
 //            return productRepository.saveAndFlush(updated);
             Product updated = productRepository.saveAndFlush(existing);
-            return  modelMapper.map(updated,SalesItemAllDataDTO.class);
+            SalesItemAllDataDTO result = modelMapper.map(updated, SalesItemAllDataDTO.class);
+            result.setBrandName(updated.getBrand().getName());
+            return  result;
         } catch (Exception e) {
             throw new UpdateFailedException("SaleItem " + id + " not updated" + e.getMessage());
         }
@@ -183,4 +193,84 @@ public class ProductServices {
         return product;
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public Product updateProduct05(int id, @Valid SaleItemCreateDTO newProduct) {
+        Product existing = productRepository.findById(id)
+                .orElseThrow(() -> new ItemNotFoundException("Sale Item Not Found by Id"));
+        Brand brand = brandRepository.findById(newProduct.getBrand().getId())
+                .orElseThrow(() -> new ItemNotFoundException("Brand not found"));
+
+        existing.setModel(newProduct.getModel());
+        existing.setDescription(newProduct.getDescription());
+        existing.setPrice(newProduct.getPrice());
+        existing.setQuantity(newProduct.getQuantity());
+        existing.setRamGb(newProduct.getRamGb());
+        existing.setScreenSizeInch(newProduct.getScreenSizeInch());
+        existing.setStorageGb(newProduct.getStorageGb());
+        existing.setColor(newProduct.getColor());
+        existing.setBrand(brand);
+
+        try {
+            return productRepository.saveAndFlush(existing); // คืน entity
+        } catch (Exception e) {
+            throw new UpdateFailedException("SaleItem " + id + " not updated: " + e.getMessage());
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public SalesItemAllDataDTO updateProduct04(int id, @Valid SaleItemCreateDTO newProduct) {
+        Product existing = productRepository.findById(id)
+                .orElseThrow(() -> new ItemNotFoundException("Sale Item Not Found by Id"));
+        Brand brand = brandRepository.findById(newProduct.getBrand().getId())
+                .orElseThrow(() -> new ItemNotFoundException("Brand not found"));
+
+        // ใช้ helper method เพื่อจัดการ business logic
+        processAndUpdateProduct(existing, newProduct, brand);
+
+        try {
+            Product updated = productRepository.saveAndFlush(existing);
+            SalesItemAllDataDTO result = modelMapper.map(updated, SalesItemAllDataDTO.class);
+            result.setBrandName(updated.getBrand().getName());
+            return result;
+        } catch (Exception e) {
+            throw new UpdateFailedException("SaleItem " + id + " not updated: " + e.getMessage());
+        }
+    }
+    private void processAndUpdateProduct(Product existing, SaleItemCreateDTO newProduct, Brand brand) {
+        // จัดการและ validate data
+        Integer quantity = newProduct.getQuantity();
+        if (quantity == null || quantity <= 0) {
+            quantity = 1;
+        }
+
+        String color = newProduct.getColor();
+        if (color != null && color.trim().isEmpty()) {
+            color = null;
+        } else if (color != null) {
+            color = color.trim();
+        }
+
+        String model = newProduct.getModel();
+        if (model != null) {
+            model = model.trim();
+        }
+
+        String description = newProduct.getDescription();
+        if (description != null) {
+            description = description.trim();
+        }
+
+        // Update existing product
+        existing.setModel(model);
+        existing.setDescription(description);
+        existing.setPrice(newProduct.getPrice());
+        existing.setQuantity(quantity);
+        existing.setRamGb(newProduct.getRamGb());
+        existing.setScreenSizeInch(newProduct.getScreenSizeInch());
+        existing.setStorageGb(newProduct.getStorageGb());
+        existing.setColor(color);
+        existing.setBrand(brand);
+//        existing.setUpdatedOn(LocalDateTime.now());
+        existing.setUpdatedOn(Instant.now());
+    }
 }

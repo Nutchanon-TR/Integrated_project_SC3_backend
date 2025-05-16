@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.time.Instant;
+
 
 @Data
 
@@ -26,5 +28,17 @@ public class SalesItemDetailDTO {
     private String color;
 
 
+    private Instant createdOn;
+    private Instant updatedOn;
+
+    public void setColor(String color) {
+        if (color != null && color.trim().isEmpty()) {
+            this.color = null;
+        } else if (color == null || color.trim().isEmpty()) {
+            this.color = null;
+        } else {
+            this.color = color.trim();
+        }
+    }
 
 }

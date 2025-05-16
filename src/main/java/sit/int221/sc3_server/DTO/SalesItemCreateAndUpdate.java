@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 public class SalesItemCreateAndUpdate {
     private Integer id;
@@ -18,7 +20,7 @@ public class SalesItemCreateAndUpdate {
     @NotNull
     private int price;
     private Integer ramGb;
-    private Double screenSizeInch;
+    private BigDecimal screenSizeInch;
     @NotNull(message = "Quantity is required")
     private int quantity;
     private Integer storageGb;

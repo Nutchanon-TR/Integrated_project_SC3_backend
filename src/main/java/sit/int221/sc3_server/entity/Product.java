@@ -7,7 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import sit.int221.sc3_server.entity.Brand;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -19,8 +20,8 @@ import java.time.LocalDateTime;
 @Table(name = "products")
 public class Product {
     @Id
-    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
     @NotNull
@@ -46,7 +47,7 @@ public class Product {
     @Column(name = "price", nullable = false)
     private Integer price;
 
-    @Column(name = "screenSizeInch", precision = 3, scale = 1)
+    @Column(name = "screenSizeInch", precision = 4, scale = 2)
     private BigDecimal screenSizeInch;
 
     @Column(name = "ramGb")
@@ -59,41 +60,20 @@ public class Product {
     @Column(name = "color", length = 60)
     private String color;
 
+////    @CreatedDate
+//    @CreationTimestamp
+//    @Column(name = "createdOn" ,updatable = false)
+//    private LocalDateTime createdOn;
+//
+////    @LastModifiedDate
+//    @UpdateTimestamp
+//    @Column(name = "updatedOn")
+//    private LocalDateTime updatedOn;
     @CreationTimestamp
-    @Column(name = "createdOn", nullable = false, updatable = false, columnDefinition = "DATETIME")
-    private LocalDateTime createdOn;
+    @Column(name = "createdOn", nullable = false, updatable = false)
+    private Instant createdOn;
 
     @UpdateTimestamp
     @Column(name = "updatedOn", nullable = false )
-    private LocalDateTime  updatedOn;
-
-    @PreUpdate
-    public void touchUpdatedOn() {
-        this.updatedOn = LocalDateTime.now();
-    }
-
-    //    @CreationTimestamp
-//    @Column(name = "createdOn", nullable = false, updatable = false)
-//    private LocalDateTime createdOn;
-
-//    @UpdateTimestamp
-//    @Column(name = "updatedOn", nullable = false)
-//    private LocalDateTime updatedOn;
-
-
-//    @CreationTimestamp
-//    @Column(updatable = false)
-//    private LocalDateTime createdOn;
-//
-//    @UpdateTimestamp
-//    private LocalDateTime updatedOn;
-
-
-//    @CreatedDate
-//    @Column(name = "createdOn")
-//    private LocalDateTime createdOn;
-//
-//
-//    @Column(name = "updatedOn")
-//    private LocalDateTime updatedOn;
+    private Instant  updatedOn;
 }

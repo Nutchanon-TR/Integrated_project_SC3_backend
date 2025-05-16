@@ -1,9 +1,12 @@
 package sit.int221.sc3_server.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+
+import java.math.BigDecimal;
 
 @Data
 public class SaleItemCreateDTO {
@@ -17,10 +20,10 @@ public class SaleItemCreateDTO {
     @NotNull
     private int price;
     private Integer ramGb;
-    private Double screenSizeInch;
+    private BigDecimal screenSizeInch;
     @Min(0)
     @NotNull(message = "Quantity is required")
-    private int quantity;
+    private Integer quantity;
     private Integer storageGb;
     private String color;
 
