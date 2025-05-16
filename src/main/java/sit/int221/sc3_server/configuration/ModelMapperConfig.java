@@ -17,9 +17,9 @@ public class ModelMapperConfig {
                 .addMapping(src -> src.getBrand().getName(), SalesItemAllDataDTO::setBrandName);
 
 
-        modelMapper.getConfiguration()
-                .setSkipNullEnabled(true)
-                .setAmbiguityIgnored(true);;
+//        modelMapper.getConfiguration()
+//                .setSkipNullEnabled(true)
+//                .setAmbiguityIgnored(true);;
 
         return modelMapper;
     }

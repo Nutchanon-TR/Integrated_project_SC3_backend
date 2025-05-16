@@ -16,7 +16,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "brand")
+@Table(name = "Brand")
 public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,5 +50,8 @@ public class Brand {
 
     @OneToMany(mappedBy = "brand")
     private Set<Product> products = new LinkedHashSet<>();
+
+//    @OneToMany(mappedBy = "brand")
+//    private Set<Product> products = new LinkedHashSet<>();
 
 }
