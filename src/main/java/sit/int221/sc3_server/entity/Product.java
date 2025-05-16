@@ -13,6 +13,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import sit.int221.sc3_server.entity.Brand;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
 
@@ -62,22 +63,29 @@ public class Product {
     @Column(name = "color", length = 60)
     private String color;
 
-    @CreationTimestamp
-    @Column(name = "createdOn", nullable = false, updatable = false)
-    private Instant  createdOn;
-
-    @UpdateTimestamp
-    @Column(name = "updatedOn", nullable = false )
-    private Instant  updatedOn;
+//    @CreationTimestamp
+//    @Column(name = "createdOn", nullable = false, updatable = false)
+//    private Instant  createdOn;
+//
+//    @UpdateTimestamp
+//    @Column(name = "updatedOn", nullable = false )
+//    private Instant  updatedOn;
 
 //    @CreationTimestamp
 //    @Column(name = "createdOn", nullable = false, updatable = false)
 //    private LocalDateTime createdOn;
-
+//
 //    @UpdateTimestamp
 //    @Column(name = "updatedOn", nullable = false)
 //    private LocalDateTime updatedOn;
 
+    @CreationTimestamp
+    @Column(name = "createdOn", nullable = false, updatable = false)
+    private Timestamp createdOn;
+
+    @UpdateTimestamp
+    @Column(name = "updatedOn", nullable = false)
+    private Timestamp updatedOn;
 
 //    @CreationTimestamp
 //    @Column(updatable = false)
@@ -94,24 +102,24 @@ public class Product {
 //
 //    @Column(name = "updatedOn")
 //    private LocalDateTime updatedOn;
-
+//
 //    @ColumnDefault("CURRENT_TIMESTAMP")
 //    @Column(name = "createdOn")
-//    private LocalDateTime createdOn;
+//    private Instant createdOn;
 //
 //    @ColumnDefault("CURRENT_TIMESTAMP")
 //    @Column(name = "updatedOn")
-//    private LocalDateTime updatedOn;
-
+//    private Instant updatedOn;
+//
 //    @PrePersist
 //    public void prePersist() {
 //        if (createdOn == null) {
-//            createdOn = LocalDateTime.now();
+//            createdOn = Instant.now();
 //        }
 //        if (updatedOn == null) {
-//            updatedOn = LocalDateTime.now();
+//            updatedOn = Instant.now();
 //        }
-//    }
+    }
 
 //    @ColumnDefault("CURRENT_TIMESTAMP")
 //    @Column(name = "createdOn", nullable = false)
@@ -131,4 +139,12 @@ public class Product {
 //        }
 //    }
 
-}
+//    @NotNull
+//    @Column(name = "createdOn", nullable = false)
+//    private LocalDateTime createdOn;
+//
+//    @NotNull
+//    @Column(name = "updatedOn", nullable = false)
+//    private LocalDateTime updatedOn;
+
+//}

@@ -13,7 +13,10 @@ public class BrandServices {
     private BrandRepository brandRepository;
 
     public List<Brand> getAllBrand() {
-
         return brandRepository.findAll();
+    }
+
+    public Brand getBrandById(int id) {
+        return brandRepository.findById(id).orElseThrow(() -> new RuntimeException("No Brand found with id: " + id));
     }
 }

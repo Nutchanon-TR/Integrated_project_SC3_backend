@@ -1,12 +1,13 @@
 package sit.int221.sc3_server.service;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import sit.int221.sc3_server.DTO.SaleItemCreateDTO;
-import sit.int221.sc3_server.DTO.SalesItemCreateAndUpdate;
 import sit.int221.sc3_server.entity.Brand;
 import sit.int221.sc3_server.entity.Product;
 import sit.int221.sc3_server.exception.CreateFailedException;
@@ -15,9 +16,8 @@ import sit.int221.sc3_server.exception.UpdateFailedException;
 import sit.int221.sc3_server.repository.BrandRepository;
 import sit.int221.sc3_server.repository.ProductRepository;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.List;
+
 @Service
 public class ProductServices {
     @Autowired
@@ -26,19 +26,15 @@ public class ProductServices {
     private BrandRepository brandRepository;
     @Autowired
     private ModelMapper modelMapper;
+//    @PersistenceContext
+//    private EntityManager entityManager;
 
     public List<Product> getAllProduct() {
         return productRepository.findAll();
-
 //        return productRepository.findAllByOrderByCreatedOnDesc();
-
     }
 
-    //    public Product getProductById(int id) {
-//        return productRepository.findById(id).orElseThrow(
-//                () -> new ItemNotFoundException("SaleItem not found for this id :: " + id)
-//        );
-//    }
+
     public Product getProductById(int id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("SaleItem not found for this id :: " + id));
@@ -50,16 +46,12 @@ public class ProductServices {
         return product;
     }
 
-//    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Product createProduct(SaleItemCreateDTO dto) {
         int brandId = dto.getBrand().getId();
         Brand brand = brandRepository.findById(brandId)
                 .orElseThrow(() -> new ItemNotFoundException("Brand with ID " + brandId + " not found."));
         Product product = modelMapper.map(dto, Product.class);
-//        product.setId(0);
         product.setBrand(brand);
-//        product.setCreatedOn(LocalDateTime.now());
-//        product.setUpdatedOn(LocalDateTime.now());
         try {
             return productRepository.saveAndFlush(product);
         } catch (Exception e) {
@@ -69,37 +61,43 @@ public class ProductServices {
         }
     }
 
-//    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public Product updateProduct(int id, SalesItemCreateAndUpdate newProduct) {
+    public Product updateProduct(int id, SaleItemCreateDTO newProduct) {
         Product existing = productRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("Sale Item Not Found by Id"));
 
-        brandRepository.findById(newProduct.getBrand().getId())
-                .orElseThrow(() -> new ItemNotFoundException("Brand not found"));
+        Brand brand = brandRepository.findById(newProduct.getBrand().getId())
+                .orElseThrow(() -> new ItemNotFoundException("Brand not found with ID."));
 
-//        try {
-            Product updated = modelMapper.map(newProduct, Product.class);
-            updated.setId(existing.getId());
-            updated.setCreatedOn(existing.getCreatedOn());
-//            updated.setUpdatedOn(existing.getUpdatedOn());
+        if (newProduct.getQuantity() == null || newProduct.getQuantity() < 0) {
+            newProduct.setQuantity(1);
+        }
 
-//            updated.setUpdatedOn(LocalDateTime.now());
-//            System.out.println(LocalDateTime.now());
-//            updated.setUpdatedOn(Instant.now());
-        System.out.println("Hello007");
-        System.out.println(updated.getUpdatedOn());
-        System.out.println(updated.getCreatedOn());
-            return productRepository.saveAndFlush(updated);
-//        } catch (Exception e) {
-//            throw new UpdateFailedException("SaleItem " + id + " not updated");
-//        }
+        try {
+            existing.setModel(newProduct.getModel());
+            existing.setBrand(brand);
+            existing.setDescription(newProduct.getDescription());
+            existing.setPrice(newProduct.getPrice());
+            existing.setRamGb(newProduct.getRamGb());
+            existing.setScreenSizeInch(newProduct.getScreenSizeInch());
+            existing.setQuantity(newProduct.getQuantity());
+            existing.setStorageGb(newProduct.getStorageGb());
+            existing.setColor(newProduct.getColor());
+
+//            var savedItem = productRepository.save(existing);
+//            entityManager.flush();
+//            entityManager.refresh(savedItem);
+
+//            return savedItem;
+            return productRepository.save(existing);
+        } catch (Exception e) {
+            throw new UpdateFailedException("SaleItem " + id + " not updated: " + e.getMessage());
+        }
     }
-    
+
     public Product deleteProduct(int id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("Product ID not found"));
         productRepository.deleteById(id);
         return product;
     }
-
 }
