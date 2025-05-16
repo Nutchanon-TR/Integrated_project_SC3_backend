@@ -5,10 +5,14 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 
 import java.math.BigDecimal;
 
 @Data
+@NoArgsConstructor
 public class SaleItemCreateDTO {
     @NotEmpty
     private String model;
@@ -38,7 +42,7 @@ public class SaleItemCreateDTO {
     public void setColor(String color) {
         if (color != null && color.trim().isEmpty()) {
             this.color = null;
-        } else if (color == null) {
+        } else if (color == null || color.trim().isEmpty()) {
             this.color = null;
         } else {
             this.color = color.trim();
@@ -46,10 +50,10 @@ public class SaleItemCreateDTO {
     }
 
     public void setModel(String model) {
-        this.model = model.trim();
+        this.model = model != null ? model.trim() : null;
     }
 
     public void setDescription(String description) {
-        this.description = description.trim();
+        this.description = (description != null && !description.trim().isEmpty()) ? description.trim() : null;
     }
 }

@@ -19,9 +19,9 @@ public class BrandServices {
     @Autowired
     private ProductRepository productRepository;
     public List<Brand> getAllBrand() {
-
         return brandRepository.findAll();
     }
+
 
     public BrandDetailDTO getBrandById(int id){
         Brand brand = brandRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Brand " + id +" not found"));
@@ -45,6 +45,7 @@ public class BrandServices {
            throw new RuntimeException("Cannot delete brand because it has products");
         }
         brandRepository.deleteById(brand.getId());
+
 
     }
 }

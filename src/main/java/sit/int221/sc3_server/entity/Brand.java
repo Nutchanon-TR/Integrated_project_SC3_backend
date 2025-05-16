@@ -1,17 +1,17 @@
 package sit.int221.sc3_server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -57,5 +57,21 @@ public class Brand {
 //    @UpdateTimestamp
 //    @Column(name = "updatedOn", nullable = false )
 //    private Instant  updatedOn;
+
+
+    @OneToMany(mappedBy = "brand")
+    @JsonIgnore
+    private Set<Product> products = new LinkedHashSet<>();
+
+//    @ColumnDefault("CURRENT_TIMESTAMP")
+//    @Column(name = "createdOn", nullable = false)
+//    private Instant createdOn;
+//
+//    @ColumnDefault("CURRENT_TIMESTAMP")
+//    @Column(name = "updatedOn", nullable = false)
+//    private Instant updatedOn;
+//
+//    @OneToMany(mappedBy = "brand")
+//    private Set<Product> saleItems = new LinkedHashSet<>();
 
 }

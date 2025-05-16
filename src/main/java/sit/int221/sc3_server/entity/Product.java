@@ -5,12 +5,14 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
 
@@ -60,20 +62,84 @@ public class Product {
     @Column(name = "color", length = 60)
     private String color;
 
-////    @CreatedDate
+
 //    @CreationTimestamp
-//    @Column(name = "createdOn" ,updatable = false)
-//    private LocalDateTime createdOn;
+//    @Column(name = "createdOn", nullable = false, updatable = false)
+//    private Instant createdOn;
 //
-////    @LastModifiedDate
 //    @UpdateTimestamp
-//    @Column(name = "updatedOn")
-//    private LocalDateTime updatedOn;
+//    @Column(name = "updatedOn", nullable = false )
+//    private Instant  updatedOn;
+//}
+
+
     @CreationTimestamp
     @Column(name = "createdOn", nullable = false, updatable = false)
-    private Instant createdOn;
+    private Timestamp createdOn;
 
     @UpdateTimestamp
-    @Column(name = "updatedOn", nullable = false )
-    private Instant  updatedOn;
-}
+    @Column(name = "updatedOn", nullable = false)
+    private Timestamp updatedOn;
+
+//    @CreationTimestamp
+//    @Column(updatable = false)
+//    private Instant createdOn;
+//
+//    @UpdateTimestamp
+//    private Instant updatedOn;
+
+
+//    @CreatedDate
+//    @Column(name = "createdOn")
+//    private LocalDateTime createdOn;
+//
+//
+//    @Column(name = "updatedOn")
+//    private LocalDateTime updatedOn;
+//
+//    @ColumnDefault("CURRENT_TIMESTAMP")
+//    @Column(name = "createdOn")
+//    private Instant createdOn;
+//
+//    @ColumnDefault("CURRENT_TIMESTAMP")
+//    @Column(name = "updatedOn")
+//    private Instant updatedOn;
+//
+//    @PrePersist
+//    public void prePersist() {
+//        if (createdOn == null) {
+//            createdOn = Instant.now();
+//        }
+//        if (updatedOn == null) {
+//            updatedOn = Instant.now();
+//        }
+    }
+
+//    @ColumnDefault("CURRENT_TIMESTAMP")
+//    @Column(name = "createdOn", nullable = false)
+//    private LocalDateTime createdOn;
+//
+//    @ColumnDefault("CURRENT_TIMESTAMP")
+//    @Column(name = "updatedOn", nullable = false)
+//    private LocalDateTime updatedOn;
+//
+//    @PrePersist
+//    public void prePersist() {
+//        if (createdOn == null) {
+//            createdOn = LocalDateTime.now();
+//        }
+//        if (updatedOn == null) {
+//            updatedOn = LocalDateTime.now();
+//        }
+//    }
+
+//    @NotNull
+//    @Column(name = "createdOn", nullable = false)
+//    private LocalDateTime createdOn;
+//
+//    @NotNull
+//    @Column(name = "updatedOn", nullable = false)
+//    private LocalDateTime updatedOn;
+
+//}
+
