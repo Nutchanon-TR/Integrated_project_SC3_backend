@@ -8,6 +8,12 @@ public class BrandDetailDTO {
     private String name;
     private String websiteUrl;
     private String countryOfOrigin;
-    private boolean isActive;
+    private boolean isIsActive;
     private int noOfSaleItems;
+//    private String createdOn;
+//    private String updatedOn;
+    private int noOfSaleItem;
+    public void setIsActive(boolean isActive){
+        this.isIsActive = isActive;
+    }
 }

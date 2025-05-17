@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sit.int221.sc3_server.DTO.BrandDetailDTO;
 import sit.int221.sc3_server.entity.Brand;
+import sit.int221.sc3_server.exception.DeleteFailedException;
 import sit.int221.sc3_server.exception.ItemNotFoundException;
 import sit.int221.sc3_server.repository.BrandRepository;
 import sit.int221.sc3_server.repository.ProductRepository;
@@ -30,8 +31,12 @@ public class BrandServices {
         dto.setName(brand.getName());
         dto.setWebsiteUrl(brand.getWebSiteUrl());
         dto.setCountryOfOrigin(brand.getCountryOfOrigin());
-        dto.setActive(brand.getIsActive());
+//        dto.setActive(brand.getIsActive());
+//        dto.setCreatedOn(brand.getCreatedOn().toString());
+//        dto.setUpdatedOn(brand.getUpdatedOn().toString());
+        dto.setIsActive(brand.getIsActive());
         dto.setNoOfSaleItems(saleItemCount);
+
         return dto;
     }
 
@@ -43,7 +48,12 @@ public class BrandServices {
         if(hasProduct){
            throw new RuntimeException("Cannot delete brand because it has products");
         }
-        brandRepository.deleteById(brand.getId());
+        try {
+            brandRepository.deleteById(brand.getId());
+        }catch (Exception e){
+            throw new DeleteFailedException("Brand " + id + " cant be deleted due to " + e.getMessage());
+        }
+
 
 
     }

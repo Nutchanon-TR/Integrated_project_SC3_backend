@@ -29,14 +29,16 @@ public class BrandController {
         return ResponseEntity.ok(brandDTOS);
     }
 
-//    @GetMapping("/brands/{id}")
-//    public ResponseEntity<BrandDetailDTO> getBrandById(@PathVariable int id){
-//        return ResponseEntity.ok(brandServices.getBrandById(id));
-//    }
-////basic delete controller
-//    @DeleteMapping("/brands/{id}")
-//    public ResponseEntity<Object> deleteBrand(@PathVariable int id){
-//        brandServices.deleteBrand(id);
-//        return ResponseEntity.noContent().build();
-//    }
+    @GetMapping("/brands/{id}")
+    public ResponseEntity<BrandDetailDTO> getBrandById(@PathVariable int id){
+        return ResponseEntity.ok(brandServices.getBrandById(id));
+    }
+//basic delete controller
+
+
+    @DeleteMapping("/brands/{id}")
+    public ResponseEntity<Object> deleteBrand(@PathVariable int id){
+        brandServices.deleteBrand(id);
+        return ResponseEntity.noContent().build();
+    }
 }
