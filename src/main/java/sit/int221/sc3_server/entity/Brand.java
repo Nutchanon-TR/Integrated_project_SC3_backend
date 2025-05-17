@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
@@ -43,24 +44,13 @@ public class Brand {
 
     @NotNull
     @Column(name = "createdOn", nullable = false)
-    private LocalDateTime createdOn;
+    private Timestamp createdOn;
 
     @NotNull
     @Column(name = "updatedOn", nullable = false)
-    private LocalDateTime updatedOn;
+    private Timestamp updatedOn;
 
     @OneToMany(mappedBy = "brand")
     @JsonIgnore
     private Set<Product> products = new LinkedHashSet<>();
-
-//    @ColumnDefault("CURRENT_TIMESTAMP")
-//    @Column(name = "createdOn", nullable = false)
-//    private Instant createdOn;
-//
-//    @ColumnDefault("CURRENT_TIMESTAMP")
-//    @Column(name = "updatedOn", nullable = false)
-//    private Instant updatedOn;
-//
-//    @OneToMany(mappedBy = "brand")
-//    private Set<Product> saleItems = new LinkedHashSet<>();
 }

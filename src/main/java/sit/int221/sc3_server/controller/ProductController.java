@@ -24,7 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/itb-mshop/v1")
-//@CrossOrigin(origins = "${app.cors.allowedOrigins}")
+@CrossOrigin(origins = "${app.cors.allowedOrigins}")
 
 public class ProductController {
     @Autowired
@@ -51,10 +51,10 @@ public class ProductController {
 
 
     @PostMapping("/sale-items")
-    public ResponseEntity<SalesItemAllDataDTO> createSaleItem(@RequestBody @Valid SaleItemCreateDTO saleItemCreateDTO) {
+    public ResponseEntity<SalesItemDetailDTO> createSaleItem(@RequestBody @Valid SaleItemCreateDTO saleItemCreateDTO) {
         Product product = productServices.createProduct(saleItemCreateDTO);
 
-        SalesItemAllDataDTO responseDto = modelMapper.map(product, SalesItemAllDataDTO.class);
+        SalesItemDetailDTO responseDto = modelMapper.map(product, SalesItemDetailDTO.class);
         responseDto.setBrandName(product.getBrand().getName());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
