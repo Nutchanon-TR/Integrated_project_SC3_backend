@@ -26,8 +26,6 @@ public class ProductServices {
     private BrandRepository brandRepository;
     @Autowired
     private ModelMapper modelMapper;
-//    @PersistenceContext
-//    private EntityManager entityManager;
 
     public List<Product> getAllProduct() {
         return productRepository.findAll();
@@ -48,7 +46,6 @@ public class ProductServices {
 
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-
     public Product createProduct(SaleItemCreateDTO dto) {
         int brandId = dto.getBrand().getId();
         Brand brand = brandRepository.findById(brandId)
@@ -64,29 +61,6 @@ public class ProductServices {
             );
         }
     }
-
-
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public SalesItemAllDataDTO createProduct02(SaleItemCreateDTO dto) {
-        int brandId = dto.getBrand().getId();
-        Brand brand = brandRepository.findById(brandId)
-                .orElseThrow(() -> new ItemNotFoundException("Brand with ID " + brandId + " not found."));
-
-        Product product = modelMapper.map(dto, Product.class);
-        product.setBrand(brand);
-
-        try {
-            Product savedProduct = productRepository.saveAndFlush(product);
-            SalesItemAllDataDTO responseDto = modelMapper.map(savedProduct, SalesItemAllDataDTO.class);
-            responseDto.setBrandName(brand.getName()); // ตั้งค่าเพิ่มจาก brand entity
-            return responseDto;
-        } catch (Exception e) {
-            throw new CreateFailedException(
-                    "Cannot create SaleItem due to: " + e.getMessage()
-            );
-        }
-    }
-
 
     public Product updateProduct(int id, SaleItemCreateDTO newProduct) {
         Product existing = productRepository.findById(id)
