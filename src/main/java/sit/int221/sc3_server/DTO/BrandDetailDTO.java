@@ -28,5 +28,6 @@ public class BrandDetailDTO  {
     private Set<SalesItemDetailDTO> products;
 
 
+
 }
 
