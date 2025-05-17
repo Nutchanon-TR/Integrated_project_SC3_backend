@@ -22,27 +22,10 @@ public class BrandServices {
         return brandRepository.findAll();
     }
 
-
-
-    public BrandDetailDTO getBrandById02(int id){
-        Brand brand = brandRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Brand " + id +" not found"));
-        int saleItemCount = productRepository.countByBrandId(brand.getId());
-        BrandDetailDTO dto = new BrandDetailDTO();
-        dto.setId(brand.getId());
-        dto.setName(brand.getName());
-        dto.setWebsiteUrl(brand.getWebSiteUrl());
-        dto.setCountryOfOrigin(brand.getCountryOfOrigin());
-//        dto.setActive(brand.getIsActive());
-//        dto.setCreatedOn(brand.getCreatedOn().toString());
-//        dto.setUpdatedOn(brand.getUpdatedOn().toString());
-        dto.setIsActive(brand.getIsActive());
-        dto.setNoOfSaleItems(saleItemCount);
-
-        return dto;
+    public Brand getBrandById(int id) {
+        return brandRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("No Brand found with id: " + id));
     }
 
-
-    //Basic Delete
     public void deleteBrand(int id) {
         Brand brand = brandRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Brand not found"));
         boolean hasProduct = productRepository.existsByBrand_Id(brand.getId());
@@ -58,8 +41,4 @@ public class BrandServices {
 
 
 
-    public Brand getBrandById(int id) {
-        return brandRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("No Brand found with id: " + id));
-
-    }
 }

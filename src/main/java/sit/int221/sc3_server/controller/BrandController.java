@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/itb-mshop/v1")
-@CrossOrigin(origins = "${app.cors.allowedOrigins}")
+//@CrossOrigin(origins = "${app.cors.allowedOrigins}")
 
 public class BrandController {
     @Autowired
@@ -27,9 +27,10 @@ public class BrandController {
     @GetMapping("/brands")
     public ResponseEntity<List<BrandDTO>> getAllBrands() {
         List<Brand> brand = brandServices.getAllBrand();
-        List<BrandDTO> brandDTOS =  listMapper.mapList(brand, BrandDTO.class,modelMapper);
+        List<BrandDTO> brandDTOS = listMapper.mapList(brand, BrandDTO.class, modelMapper);
         return ResponseEntity.ok(brandDTOS);
     }
+
 
 
 //    @GetMapping("/brands/{id}")
@@ -37,11 +38,7 @@ public class BrandController {
 //        return ResponseEntity.ok(brandServices.getBrandById02(id));
 //    }
 
-    @DeleteMapping("/brands/{id}")
-    public ResponseEntity<Object> deleteBrand(@PathVariable int id){
-        brandServices.deleteBrand(id);
-        return ResponseEntity.noContent().build();
-    }
+
 
     @GetMapping("/brands/{id}")
     public ResponseEntity<BrandDetailDTO> getBrandById(@PathVariable int id) {
@@ -50,5 +47,10 @@ public class BrandController {
         brandDTO.setNoOfSaleItems(brandDTO.getProducts().size());
         return ResponseEntity.ok(brandDTO);
     }
-}
 
+    @DeleteMapping("/brands/{id}")
+    public ResponseEntity<Object> deleteBrand(@PathVariable int id) {
+        brandServices.deleteBrand(id);
+        return ResponseEntity.noContent().build();
+    }
+}

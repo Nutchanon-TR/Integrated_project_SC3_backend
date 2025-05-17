@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/itb-mshop/v1")
-@CrossOrigin(origins = "${app.cors.allowedOrigins}")
+//@CrossOrigin(origins = "${app.cors.allowedOrigins}")
 
 public class ProductController {
     @Autowired
@@ -46,23 +46,17 @@ public class ProductController {
     public ResponseEntity<SalesItemAllDataDTO> createSaleItem(@RequestBody @Valid SaleItemCreateDTO saleItemCreateDTO) {
         Product product = productServices.createProduct(saleItemCreateDTO);
         SalesItemAllDataDTO responseDto = modelMapper.map(product, SalesItemAllDataDTO.class);
-
         responseDto.setBrandName(product.getBrand().getName());
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
-
-
     @PutMapping("/sale-items/{id}")
-
     public ResponseEntity<SalesItemDetailDTO> updateSaleItem(@PathVariable int id, @RequestBody @Valid SaleItemCreateDTO productDto){
         Product product = productServices.updateProduct(id, productDto);
 
         var dto = modelMapper.map(product,SalesItemDetailDTO.class);
         return ResponseEntity.ok().body(dto);
     }
-
-
 
     @DeleteMapping("/sale-items/{id}")
     public ResponseEntity<SalesItemDetailDTO> deleteSaleItem(@PathVariable int id) {
