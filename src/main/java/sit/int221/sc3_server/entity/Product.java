@@ -62,17 +62,6 @@ public class Product {
     @Column(name = "color", length = 60)
     private String color;
 
-
-//    @CreationTimestamp
-//    @Column(name = "createdOn", nullable = false, updatable = false)
-//    private Instant createdOn;
-//
-//    @UpdateTimestamp
-//    @Column(name = "updatedOn", nullable = false )
-//    private Instant  updatedOn;
-//}
-
-
     @CreationTimestamp
     @Column(name = "createdOn", nullable = false, updatable = false)
     private Timestamp createdOn;
@@ -81,5 +70,7 @@ public class Product {
     @Column(name = "updatedOn", nullable = false)
     private Timestamp updatedOn;
 
+
 }
+
 

@@ -23,7 +23,8 @@ public class BrandServices {
     }
 
 
-    public BrandDetailDTO getBrandById(int id){
+
+    public BrandDetailDTO getBrandById02(int id){
         Brand brand = brandRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Brand " + id +" not found"));
         int saleItemCount = productRepository.countByBrandId(brand.getId());
         BrandDetailDTO dto = new BrandDetailDTO();
@@ -42,19 +43,23 @@ public class BrandServices {
 
 
     //Basic Delete
-    public void deleteBrand(int id){
+    public void deleteBrand(int id) {
         Brand brand = brandRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Brand not found"));
         boolean hasProduct = productRepository.existsByBrand_Id(brand.getId());
-        if(hasProduct){
-           throw new RuntimeException("Cannot delete brand because it has products");
+        if (hasProduct) {
+            throw new RuntimeException("Cannot delete brand because it has products");
         }
         try {
             brandRepository.deleteById(brand.getId());
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new DeleteFailedException("Brand " + id + " cant be deleted due to " + e.getMessage());
         }
+    }
 
 
+
+    public Brand getBrandById(int id) {
+        return brandRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("No Brand found with id: " + id));
 
     }
 }

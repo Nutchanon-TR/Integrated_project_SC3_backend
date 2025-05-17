@@ -47,6 +47,8 @@ public class ProductServices {
     }
 
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+
     public Product createProduct(SaleItemCreateDTO dto) {
         int brandId = dto.getBrand().getId();
         Brand brand = brandRepository.findById(brandId)

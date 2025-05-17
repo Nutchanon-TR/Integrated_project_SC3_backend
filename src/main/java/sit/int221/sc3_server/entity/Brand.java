@@ -40,6 +40,7 @@ public class Brand {
     @Column(name = "countryOfOrigin", length = 80)
     private String countryOfOrigin;
 
+
     @CreationTimestamp
     @Column(name = "createdOn", nullable = false, updatable = false)
     private Timestamp createdOn;
@@ -50,8 +51,5 @@ public class Brand {
 
     @OneToMany(mappedBy = "brand")
     private Set<Product> products = new LinkedHashSet<>();
-
-//    @OneToMany(mappedBy = "brand")
-//    private Set<Product> products = new LinkedHashSet<>();
 
 }
