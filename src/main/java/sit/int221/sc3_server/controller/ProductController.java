@@ -15,16 +15,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/itb-mshop/v1")
-//@CrossOrigin(origins = "${app.cors.allowedOrigins}")
+@CrossOrigin(origins = "${app.cors.allowedOrigins}")
 
 public class ProductController {
     @Autowired
     private ProductServices productServices;
     @Autowired
     private ModelMapper modelMapper;
-
     @Autowired
     private ListMapper listMapper;
+
     @GetMapping("/sale-items")
     public ResponseEntity<List<salesItemDTO>> getAllSaleItem(){
         List<Product> productItem = productServices.getAllProduct();
