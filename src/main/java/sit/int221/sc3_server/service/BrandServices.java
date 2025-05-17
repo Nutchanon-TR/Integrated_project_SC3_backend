@@ -47,12 +47,12 @@ public class BrandServices {
         Brand brand = brandRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Brand not found"));
         boolean hasProduct = productRepository.existsByBrand_Id(brand.getId());
         if (hasProduct) {
-            throw new RuntimeException("Cannot delete brand because it has products");
+            throw new DeleteFailedException("Cannot delete brand because it has products");
         }
         try {
             brandRepository.deleteById(brand.getId());
         } catch (Exception e) {
-            throw new DeleteFailedException("Brand " + id + " cant be deleted due to " + e.getMessage());
+            throw new RuntimeException("Brand " + id + " cant be deleted due to " + e.getMessage());
         }
     }
 
