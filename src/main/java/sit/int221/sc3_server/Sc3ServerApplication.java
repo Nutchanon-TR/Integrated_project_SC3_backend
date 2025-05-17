@@ -19,7 +19,6 @@ public class Sc3ServerApplication {
 	}
 
 
-
 	@Bean
 	public ListMapper listMapper(){
 		return ListMapper.getInstance();
