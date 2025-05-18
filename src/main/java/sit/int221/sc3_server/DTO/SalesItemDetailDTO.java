@@ -29,8 +29,10 @@ public class SalesItemDetailDTO {
     @NotNull(message = "Quantity is required")
     private Integer quantity;
 
-    private String createdOn;
-    private String updatedOn;
+//    private String createdOn;
+//    private String updatedOn;
+    private Instant createdOn;
+    private Instant updatedOn;
 
 
     public void setColor(String color) {

@@ -62,9 +62,9 @@ public class BrandServices {
         Boolean isActive = dto.getIsActive();
         brand.setIsActive(isActive != null ? isActive : true);
 
-        Timestamp now = Timestamp.from(ZonedDateTime.now().toInstant());
-        brand.setCreatedOn(now);
-        brand.setUpdatedOn(now);
+//        Timestamp now = Timestamp.from(ZonedDateTime.now().toInstant());
+//        brand.setCreatedOn(now);
+//        brand.setUpdatedOn(now);
 
         return brandRepository.save(brand);
     }
@@ -84,8 +84,8 @@ public class BrandServices {
         Boolean isActive = dtos.getIsActive();
         brand.setIsActive(isActive != null ? isActive : true);
 
-        Timestamp now = Timestamp.from(ZonedDateTime.now().toInstant());
-        brand.setUpdatedOn(now);
+//        Timestamp now = Timestamp.from(ZonedDateTime.now().toInstant());
+//        brand.setUpdatedOn(now);
 
         brand = brandRepository.save(brand);
 
