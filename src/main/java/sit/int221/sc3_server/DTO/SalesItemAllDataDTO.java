@@ -1,12 +1,12 @@
 package sit.int221.sc3_server.DTO;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDateTime;
 
@@ -21,25 +21,20 @@ public class SalesItemAllDataDTO {
     private String description;
     private int price;
     private Integer ramGb;
-    private Double screenSizeInch;
+    private BigDecimal screenSizeInch;
     @Min(0)
     @NotNull(message = "Quantity is required")
-    private int quantity;
+    private Integer quantity;
     private Integer storageGb;
     private String color;
 //    private LocalDateTime createdOn;
 //    private LocalDateTime updatedOn;
-//    private Instant createdOn;
-//    private Instant updatedOn;
+    private String createdOn;
+    private String updatedOn;
 
 
 //    private String getBrandName(){
 //        return brandDTO.getName();
 //    }
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
-    private Instant createdOn;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
-    private Instant updatedOn;
 
 }

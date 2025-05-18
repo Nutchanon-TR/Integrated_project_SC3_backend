@@ -42,4 +42,16 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ger);
     }
+
+    @ExceptionHandler(DeleteFailedException.class)
+    public ResponseEntity<Object> handleDeleteFailedException(Exception e,HttpServletRequest httpServletRequest){
+        GeneralErrorResponse ger = new GeneralErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                "brand delete failed",
+                e.getMessage(),
+                httpServletRequest.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ger);
+    }
+
 }

@@ -11,4 +11,9 @@ public class CreateBrandDTO {
     private String Name;
     private String websiteUrl;
     private String countryOfOrigin;
+    private Boolean isActive;
+
+    public void setName(String name) {
+        this.Name = name != null ? name.trim() : null;
+    }
 }

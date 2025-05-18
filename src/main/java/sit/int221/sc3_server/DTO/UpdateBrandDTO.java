@@ -12,6 +12,10 @@ public class UpdateBrandDTO {
     private String Name;
     private String websiteUrl;
     private String countryOfOrigin;
-    @NotNull(message = "isActive is required")
+//    @NotNull(message = "isActive is required")
     private Boolean isActive;
+
+    public void setName(String name) {
+        this.Name = name != null ? name.trim() : null;
+    }
 }

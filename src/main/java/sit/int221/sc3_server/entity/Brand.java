@@ -1,16 +1,15 @@
 package sit.int221.sc3_server.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -31,7 +30,7 @@ public class Brand {
 
     @Size(max = 40)
     @Column(name = "webSiteUrl", length = 40)
-    private String websiteUrl;
+    private String webSiteUrl;
 
     @NotNull
     @Column(name = "isActive", nullable = false)
@@ -41,26 +40,16 @@ public class Brand {
     @Column(name = "countryOfOrigin", length = 80)
     private String countryOfOrigin;
 
-    @NotNull
-    @Column(name = "createdOn", nullable = false)
-    private Instant createdOn;
 
-    @NotNull
+    @CreationTimestamp
+    @Column(name = "createdOn", nullable = false, updatable = false)
+    private Timestamp createdOn;
+
+    @UpdateTimestamp
     @Column(name = "updatedOn", nullable = false)
-    private Instant updatedOn;
+    private Timestamp updatedOn;
 
     @OneToMany(mappedBy = "brand")
-    @JsonIgnore
     private Set<Product> products = new LinkedHashSet<>();
 
-//    @ColumnDefault("CURRENT_TIMESTAMP")
-//    @Column(name = "createdOn", nullable = false)
-//    private Instant createdOn;
-//
-//    @ColumnDefault("CURRENT_TIMESTAMP")
-//    @Column(name = "updatedOn", nullable = false)
-//    private Instant updatedOn;
-//
-//    @OneToMany(mappedBy = "brand")
-//    private Set<Product> saleItems = new LinkedHashSet<>();
 }
