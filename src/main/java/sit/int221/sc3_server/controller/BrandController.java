@@ -35,13 +35,6 @@ public class BrandController {
         return ResponseEntity.ok(brandDTOS);
     }
 
-//    @GetMapping("/brands/{id}")
-//    public ResponseEntity<BrandDetailDTO> getBrandById(@PathVariable int id) {
-//        Brand brand = brandServices.getBrandById(id);
-//        BrandDetailDTO brandDTO = modelMapper.map(brand, BrandDetailDTO.class);
-//        return ResponseEntity.ok(brandDTO);
-//    }
-
     @GetMapping("/brands/{id}")
     public ResponseEntity<BrandDetailDTO> getBrandById(@PathVariable int id) {
         BrandDetailDTO brandDTO = brandServices.getBrandDetailById(id);
@@ -54,11 +47,6 @@ public class BrandController {
         return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(brand, BrandDetailDTO.class));
     }
 
-//    @PutMapping("/brands/{id}")
-//    public ResponseEntity<BrandDetailDTO> updateBrand(@PathVariable int id, @RequestBody UpdateBrandDTO updateBrandDTO) {
-//        Brand brand = brandServices.updateBrand(id, updateBrandDTO);
-//        return ResponseEntity.ok(modelMapper.map(brand, BrandDetailDTO.class));
-//    }
 
     @PutMapping("/brands/{id}")
     public ResponseEntity<BrandDetailDTO> updateBrand(@PathVariable int id, @RequestBody UpdateBrandDTO updateBrandDTO) {
