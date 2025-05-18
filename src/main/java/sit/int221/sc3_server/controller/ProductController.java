@@ -22,8 +22,6 @@ public class ProductController {
     @Autowired
     private ProductServices productServices;
     @Autowired
-    private BrandServices brandServices;
-    @Autowired
     private ModelMapper modelMapper;
     @Autowired
     private ListMapper listMapper;
@@ -39,7 +37,6 @@ public class ProductController {
     public ResponseEntity<SalesItemDetailDTO> getSaleItemById(@PathVariable int id) {
         return ResponseEntity.ok().body(modelMapper.map(productServices.getProductById(id), SalesItemDetailDTO.class));
     }
-
 
     @PostMapping("/sale-items")
     public ResponseEntity<SalesItemAllDataDTO> createSaleItem(@RequestBody @Valid SaleItemCreateDTO saleItemCreateDTO) {
@@ -62,5 +59,4 @@ public class ProductController {
         productServices.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
-
 }
