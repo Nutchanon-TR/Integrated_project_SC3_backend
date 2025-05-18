@@ -37,7 +37,7 @@ public class BrandServices {
         return brandRepository.findAll();
     }
 
-    public Brand getBrandById(int id) {
+    private Brand getBrandById(int id) {
         return brandRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("No Brand found with id: " + id));
     }
 
@@ -70,17 +70,6 @@ public class BrandServices {
     }
 
 
-//    public Brand updateBrand(int id, UpdateBrandDTO dto) {
-//        Brand brand = getBrandById(id);
-//        brand.setName(dto.getName());
-//        brand.setWebSiteUrl(dto.getWebsiteUrl());
-//        brand.setCountryOfOrigin(dto.getCountryOfOrigin());
-//        brand.setIsActive(dto.getIsActive());
-//        Timestamp now = Timestamp.from(ZonedDateTime.now().toInstant());
-//        brand.setUpdatedOn(now);
-//        return brandRepository.save(brand);
-//    }
-
     public BrandDetailDTO updateBrand(int id, UpdateBrandDTO dtos) {
 
         if (dtos.getName() == null || dtos.getName().trim().isEmpty()) {
@@ -98,18 +87,14 @@ public class BrandServices {
 //        Timestamp now = Timestamp.from(ZonedDateTime.now().toInstant());
 //        brand.setUpdatedOn(now);
 
-        // save entity
         brand = brandRepository.save(brand);
 
-        // map to DTO
         BrandDetailDTO dto = modelMapper.map(brand, BrandDetailDTO.class);
         int count = productRepository.countByBrand_Id(brand.getId());
         dto.setNoOfSaleItems(count);
 
         return dto;
     }
-
-
 
 
     public void deleteBrand(int id) {
@@ -124,8 +109,4 @@ public class BrandServices {
             throw new RuntimeException("Brand " + id + " cant be deleted due to " + e.getMessage());
         }
     }
-
-
-
-
 }
