@@ -64,12 +64,20 @@ public class Product {
 
     @CreationTimestamp
     @Column(name = "createdOn", nullable = false, updatable = false)
-    private Timestamp createdOn;
+    private Instant createdOn;
 
     @UpdateTimestamp
     @Column(name = "updatedOn", nullable = false)
-    private Timestamp updatedOn;
+    private Instant updatedOn;
 
+
+//    @CreationTimestamp
+//    @Column(name = "createdOn", nullable = false, updatable = false)
+//    private Timestamp createdOn;
+//
+//    @UpdateTimestamp
+//    @Column(name = "updatedOn", nullable = false)
+//    private Timestamp updatedOn;
 
 }
 

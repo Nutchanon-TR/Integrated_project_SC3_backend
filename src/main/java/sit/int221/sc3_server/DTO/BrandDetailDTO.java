@@ -24,8 +24,8 @@ public class BrandDetailDTO  {
     @Size(max = 80)
     private String countryOfOrigin;
     private Integer noOfSaleItems;
-    @JsonIgnore
-    private Set<SalesItemDetailDTO> products;
+//    @JsonIgnore
+//    private Set<SalesItemDetailDTO> products;
 
 
 
