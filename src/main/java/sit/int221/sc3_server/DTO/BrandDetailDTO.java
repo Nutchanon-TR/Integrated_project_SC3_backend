@@ -17,7 +17,7 @@ public class BrandDetailDTO  {
     @NotNull
     @Size(max = 30)
     private String name;
-    @Size(max = 40)
+//    @Size(max = 40)
     private String websiteUrl;
     @NotNull
     private Boolean isActive;

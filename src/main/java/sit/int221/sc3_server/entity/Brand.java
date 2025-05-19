@@ -23,13 +23,13 @@ public class Brand {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Size(max = 30)
+//    @Size(max = 30)
     @NotNull
-    @Column(name = "name", nullable = false, length = 30)
+//    @Column(name = "name", nullable = false, length = 30)
     private String name;
 
-    @Size(max = 40)
-    @Column(name = "webSiteUrl", length = 40)
+//    @Size(max = 40)
+//    @Column(name = "webSiteUrl", length = 40)
     private String webSiteUrl;
 
     @NotNull

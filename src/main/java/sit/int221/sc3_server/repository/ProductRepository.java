@@ -9,6 +9,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 //    List<Product> findAllByOrderByCreatedOnDesc();
     //List<Product> findAllByBrand_Id(int id);
     boolean existsByBrand_Id(int brandId);
-    int countByBrandId(int id);
 
+    int countByBrand_Id(int id);
 }
