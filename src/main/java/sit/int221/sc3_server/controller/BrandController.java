@@ -28,19 +28,18 @@ public class BrandController {
     @Autowired
     private ModelMapper modelMapper;
 
+//    @GetMapping("/brands")
+//    public ResponseEntity<List<BrandDetailDTO>> getAllBrands() {
+//        List<Brand> brand = brandServices.getAllBrand();
+//        List<BrandDetailDTO> brandDTOS = listMapper.mapList(brand, BrandDetailDTO.class, modelMapper);
+//        return ResponseEntity.ok(brandDTOS);
+//    }
     @GetMapping("/brands")
     public ResponseEntity<List<BrandDetailDTO>> getAllBrands() {
-        List<Brand> brand = brandServices.getAllBrand();
-        List<BrandDetailDTO> brandDTOS = listMapper.mapList(brand, BrandDetailDTO.class, modelMapper);
-        return ResponseEntity.ok(brandDTOS);
-    }
-
-//    @GetMapping("/brands/{id}")
-//    public ResponseEntity<BrandDetailDTO> getBrandById(@PathVariable int id) {
-//        Brand brand = brandServices.getBrandById(id);
-//        BrandDetailDTO brandDTO = modelMapper.map(brand, BrandDetailDTO.class);
-//        return ResponseEntity.ok(brandDTO);
-//    }
+    List<BrandDetailDTO> brand = brandServices.getAllBrand();
+    List<BrandDetailDTO> brandDTOS = listMapper.mapList(brand, BrandDetailDTO.class, modelMapper);
+    return ResponseEntity.ok(brandDTOS);
+}
 
     @GetMapping("/brands/{id}")
     public ResponseEntity<BrandDetailDTO> getBrandById(@PathVariable int id) {
@@ -54,11 +53,6 @@ public class BrandController {
         return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(brand, BrandDetailDTO.class));
     }
 
-//    @PutMapping("/brands/{id}")
-//    public ResponseEntity<BrandDetailDTO> updateBrand(@PathVariable int id, @RequestBody UpdateBrandDTO updateBrandDTO) {
-//        Brand brand = brandServices.updateBrand(id, updateBrandDTO);
-//        return ResponseEntity.ok(modelMapper.map(brand, BrandDetailDTO.class));
-//    }
 
     @PutMapping("/brands/{id}")
     public ResponseEntity<BrandDetailDTO> updateBrand(@PathVariable int id, @RequestBody UpdateBrandDTO updateBrandDTO) {

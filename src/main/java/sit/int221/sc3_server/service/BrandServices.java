@@ -1,5 +1,6 @@
 package sit.int221.sc3_server.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,8 +21,10 @@ import sit.int221.sc3_server.repository.ProductRepository;
 import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
+@Slf4j
 @Service
 public class BrandServices {
     @Autowired
@@ -33,11 +36,23 @@ public class BrandServices {
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<Brand> getAllBrand() {
-        return brandRepository.findAll();
+//    public List<Brand> getAllBrand() {
+//        return brandRepository.findAll();
+//    }
+
+    public List<BrandDetailDTO> getAllBrand() {
+        List<Brand> brandList = brandRepository.findAll();
+
+        return brandList.stream().map(brand -> {
+            BrandDetailDTO dto = modelMapper.map(brand, BrandDetailDTO.class);
+            int count = productRepository.countByBrand_Id(brand.getId()); // อย่าลืมใช้ method ที่ชื่อถูกต้อง
+            dto.setNoOfSaleItems(count);
+            return dto;
+        }).collect(Collectors.toList());
     }
 
-    public Brand getBrandById(int id) {
+
+    private Brand getBrandById(int id) {
         return brandRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("No Brand found with id: " + id));
     }
 
@@ -62,24 +77,13 @@ public class BrandServices {
         Boolean isActive = dto.getIsActive();
         brand.setIsActive(isActive != null ? isActive : true);
 
-        Timestamp now = Timestamp.from(ZonedDateTime.now().toInstant());
-        brand.setCreatedOn(now);
-        brand.setUpdatedOn(now);
+//        Timestamp now = Timestamp.from(ZonedDateTime.now().toInstant());
+//        brand.setCreatedOn(now);
+//        brand.setUpdatedOn(now);
 
         return brandRepository.save(brand);
     }
 
-
-//    public Brand updateBrand(int id, UpdateBrandDTO dto) {
-//        Brand brand = getBrandById(id);
-//        brand.setName(dto.getName());
-//        brand.setWebSiteUrl(dto.getWebsiteUrl());
-//        brand.setCountryOfOrigin(dto.getCountryOfOrigin());
-//        brand.setIsActive(dto.getIsActive());
-//        Timestamp now = Timestamp.from(ZonedDateTime.now().toInstant());
-//        brand.setUpdatedOn(now);
-//        return brandRepository.save(brand);
-//    }
 
     public BrandDetailDTO updateBrand(int id, UpdateBrandDTO dtos) {
 
@@ -95,21 +99,17 @@ public class BrandServices {
         Boolean isActive = dtos.getIsActive();
         brand.setIsActive(isActive != null ? isActive : true);
 
-        Timestamp now = Timestamp.from(ZonedDateTime.now().toInstant());
-        brand.setUpdatedOn(now);
+//        Timestamp now = Timestamp.from(ZonedDateTime.now().toInstant());
+//        brand.setUpdatedOn(now);
 
-        // save entity
         brand = brandRepository.save(brand);
 
-        // map to DTO
         BrandDetailDTO dto = modelMapper.map(brand, BrandDetailDTO.class);
         int count = productRepository.countByBrand_Id(brand.getId());
         dto.setNoOfSaleItems(count);
 
         return dto;
     }
-
-
 
 
     public void deleteBrand(int id) {
@@ -124,8 +124,4 @@ public class BrandServices {
             throw new RuntimeException("Brand " + id + " cant be deleted due to " + e.getMessage());
         }
     }
-
-
-
-
 }
