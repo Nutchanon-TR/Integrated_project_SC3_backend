@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
     boolean existsByBrand_Id(int brandId);
-    int countByBrand_Id(int id);
 
+
+
+    int countByBrand_Id(int id);
 }

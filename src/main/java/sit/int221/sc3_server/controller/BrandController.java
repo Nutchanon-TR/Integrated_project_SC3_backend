@@ -28,12 +28,18 @@ public class BrandController {
     @Autowired
     private ModelMapper modelMapper;
 
+//    @GetMapping("/brands")
+//    public ResponseEntity<List<BrandDetailDTO>> getAllBrands() {
+//        List<Brand> brand = brandServices.getAllBrand();
+//        List<BrandDetailDTO> brandDTOS = listMapper.mapList(brand, BrandDetailDTO.class, modelMapper);
+//        return ResponseEntity.ok(brandDTOS);
+//    }
     @GetMapping("/brands")
     public ResponseEntity<List<BrandDetailDTO>> getAllBrands() {
-        List<Brand> brand = brandServices.getAllBrand();
-        List<BrandDetailDTO> brandDTOS = listMapper.mapList(brand, BrandDetailDTO.class, modelMapper);
-        return ResponseEntity.ok(brandDTOS);
-    }
+    List<BrandDetailDTO> brand = brandServices.getAllBrand();
+    List<BrandDetailDTO> brandDTOS = listMapper.mapList(brand, BrandDetailDTO.class, modelMapper);
+    return ResponseEntity.ok(brandDTOS);
+}
 
     @GetMapping("/brands/{id}")
     public ResponseEntity<BrandDetailDTO> getBrandById(@PathVariable int id) {

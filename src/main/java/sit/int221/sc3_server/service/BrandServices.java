@@ -1,5 +1,6 @@
 package sit.int221.sc3_server.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,8 +21,10 @@ import sit.int221.sc3_server.repository.ProductRepository;
 import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
+@Slf4j
 @Service
 public class BrandServices {
     @Autowired
@@ -33,9 +36,21 @@ public class BrandServices {
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<Brand> getAllBrand() {
-        return brandRepository.findAll();
+//    public List<Brand> getAllBrand() {
+//        return brandRepository.findAll();
+//    }
+
+    public List<BrandDetailDTO> getAllBrand() {
+        List<Brand> brandList = brandRepository.findAll();
+
+        return brandList.stream().map(brand -> {
+            BrandDetailDTO dto = modelMapper.map(brand, BrandDetailDTO.class);
+            int count = productRepository.countByBrand_Id(brand.getId()); // อย่าลืมใช้ method ที่ชื่อถูกต้อง
+            dto.setNoOfSaleItems(count);
+            return dto;
+        }).collect(Collectors.toList());
     }
+
 
     private Brand getBrandById(int id) {
         return brandRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("No Brand found with id: " + id));
