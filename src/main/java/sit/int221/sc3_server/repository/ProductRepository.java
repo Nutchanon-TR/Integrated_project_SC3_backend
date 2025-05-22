@@ -13,6 +13,4 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     int countByBrand_Id(int id);
 
     Page<Product> findByBrand_NameIn(List<String> brandNames, Pageable pageable);
-    Page<Product> OrderByCreatedOnDesc(Pageable pageable);
-
 }

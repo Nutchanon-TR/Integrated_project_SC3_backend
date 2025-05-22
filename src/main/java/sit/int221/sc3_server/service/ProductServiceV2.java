@@ -24,9 +24,19 @@ public class ProductServiceV2 {
 
     public Page<Product> getAllProduct(List<String> filterBrands, Integer page, Integer size, String sortField, String sortDirection) {
         Sort.Direction direction = sortDirection.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        //No filter
         if (filterBrands == null || filterBrands.isEmpty()) {
-            return productRepository.OrderByCreatedOnDesc(PageRequest.of(page, size));
-        } else {
+            //Default Sorting
+            System.out.println("Non Filter By brand Id");
+            //BrandName Sorting
+            return productRepository.findAll(PageRequest.of(page, size,Sort.by(direction, sortField)));
+        }
+        //Filter by BrandName
+        else {
+            //Default Sorting
+            System.out.println("Filter By brand Id");
+            System.out.println("filterBrands: "+filterBrands);
+            //BrandName Sorting
             return productRepository.findByBrand_NameIn(filterBrands, PageRequest.of(page, size, Sort.by(direction, sortField)));
         }
     }
