@@ -32,15 +32,14 @@ public class ProductControllerV2 {
             @RequestParam(required = false) List<String> filterBrands,
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "10", required = false) Integer size,
-            @RequestParam(required = false) String sortField,
-            @RequestParam(defaultValue = "desc", required = false) String sortDirection
+            @RequestParam(defaultValue = "createdOn",required = false) String sortField,
+            @RequestParam(defaultValue = "asc", required = false) String sortDirection
     ) {
-        System.out.println(filterBrands);
-        System.out.println(sortField);
+        System.out.println("filterBrands: " + filterBrands);
+        System.out.println("sortField: "+sortField);
         Page<Product> products = productServiceV2.getAllProduct(filterBrands, page, size, sortField, sortDirection);
         System.out.println();
         PageDTO<SalesItemAllDataDTO> pageDTO = listMapper.toPageDTO(products, SalesItemAllDataDTO.class, modelMapper);
-//        pageDTO.setSort(sortField + " : " + sortDirection);
         return ResponseEntity.ok(pageDTO);
     }
 }
