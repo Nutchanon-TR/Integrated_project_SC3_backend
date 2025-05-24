@@ -27,7 +27,7 @@ public class ProductServiceV2 {
         //No filter
         if (filterBrands == null || filterBrands.isEmpty()) {
             System.out.println("Non Filter By brand Id");
-            return productRepository.findAll(PageRequest.of(page, size,Sort.by(direction, sortField)));
+            return productRepository.findAll(PageRequest.of(page, size,Sort.by(direction, sortField).and(Sort.by(direction, "id"))));
         }
         //Filter by BrandName
         else {
