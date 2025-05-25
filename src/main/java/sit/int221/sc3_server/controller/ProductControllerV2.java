@@ -30,7 +30,7 @@ public class ProductControllerV2 {
     @GetMapping("/sale-items")
     public ResponseEntity<PageDTO<SalesItemAllDataDTO>> getAllSaleItem(
             @RequestParam(required = false) List<String> filterBrands,
-            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam Integer page,
             @RequestParam(defaultValue = "10", required = false) Integer size,
             @RequestParam(defaultValue = "createdOn",required = false) String sortField,
             @RequestParam(defaultValue = "asc", required = false) String sortDirection

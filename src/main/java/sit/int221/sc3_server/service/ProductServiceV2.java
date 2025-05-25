@@ -26,17 +26,12 @@ public class ProductServiceV2 {
         Sort.Direction direction = sortDirection.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         //No filter
         if (filterBrands == null || filterBrands.isEmpty()) {
-            //Default Sorting
             System.out.println("Non Filter By brand Id");
-            //BrandName Sorting
-            return productRepository.findAll(PageRequest.of(page, size,Sort.by(direction, sortField)));
+            return productRepository.findAll(PageRequest.of(page, size,Sort.by(direction, sortField).and(Sort.by(direction, "id"))));
         }
         //Filter by BrandName
         else {
-            //Default Sorting
-            System.out.println("Filter By brand Id");
-            System.out.println("filterBrands: "+filterBrands);
-            //BrandName Sorting
+            System.out.println("Filter By brand Id filterBrands: "+filterBrands);
             return productRepository.findByBrand_NameIn(filterBrands, PageRequest.of(page, size, Sort.by(direction, sortField)));
         }
     }
