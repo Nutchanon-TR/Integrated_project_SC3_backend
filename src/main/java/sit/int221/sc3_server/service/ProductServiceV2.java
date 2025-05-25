@@ -24,10 +24,11 @@ public class ProductServiceV2 {
 
     public Page<Product> getAllProduct(List<String> filterBrands, Integer page, Integer size, String sortField, String sortDirection) {
         Sort.Direction direction = sortDirection.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Sort.Direction directionId = Sort.Direction.ASC;
         //No filter
         if (filterBrands == null || filterBrands.isEmpty()) {
             System.out.println("Non Filter By brand Id");
-            return productRepository.findAll(PageRequest.of(page, size,Sort.by(direction, sortField).and(Sort.by(direction, "id"))));
+            return productRepository.findAll(PageRequest.of(page, size,Sort.by(direction, sortField).and(Sort.by(directionId, "id"))));
         }
         //Filter by BrandName
         else {
