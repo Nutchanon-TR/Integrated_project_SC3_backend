@@ -50,6 +50,14 @@ public class ProductServices {
         int brandId = dto.getBrand().getId();
         Brand brand = brandRepository.findById(brandId)
                 .orElseThrow(() -> new ItemNotFoundException("Brand with ID " + brandId + " not found."));
+
+        String model = dto.getModel().trim();
+        boolean isDuplicate = productRepository.existsByModelIgnoreCase(model);
+
+        if (isDuplicate) {
+            throw new CreateFailedException("Cannot create SaleItem: model '" + model + "' already exists.");
+        }
+
         Product product = modelMapper.map(dto, Product.class);
         product.setBrand(brand);
 
