@@ -33,7 +33,7 @@ public class ProductServiceV2 {
         //Filter by BrandName
         else {
             System.out.println("Filter By brand Id filterBrands: "+filterBrands);
-            return productRepository.findByBrand_NameIn(filterBrands, PageRequest.of(page, size, Sort.by(direction, sortField)));
+            return productRepository.findByBrand_NameIn(filterBrands, PageRequest.of(page, size, Sort.by(direction, sortField).and(Sort.by(directionId, "id"))));
         }
     }
 }

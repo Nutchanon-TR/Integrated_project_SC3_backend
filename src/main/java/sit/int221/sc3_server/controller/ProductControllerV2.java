@@ -32,7 +32,7 @@ public class ProductControllerV2 {
             @RequestParam Integer page,
             @RequestParam(defaultValue = "10", required = false) Integer size,
             @RequestParam(defaultValue = "createdOn",required = false) String sortField,
-            @RequestParam(defaultValue = "asc", required = false) String sortDirection
+            @RequestParam(defaultValue = "desc", required = false) String sortDirection
     ) {
         System.out.println("filterBrands: " + filterBrands);
         System.out.println("sortField: "+sortField);
