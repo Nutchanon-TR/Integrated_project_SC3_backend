@@ -17,7 +17,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/itb-mshop/v2")
-//@CrossOrigin(origins = "${app.cors.allowedOrigins}")
+@CrossOrigin(origins = "${app.cors.allowedOrigins}")
+
 public class ProductControllerV2 {
     @Autowired
     private ProductServiceV2 productServiceV2;
@@ -37,6 +38,7 @@ public class ProductControllerV2 {
         System.out.println("filterBrands: " + filterBrands);
         System.out.println("sortField: "+sortField);
         Page<Product> products = productServiceV2.getAllProduct(filterBrands, page, size, sortField, sortDirection);
+        System.out.println();
         PageDTO<SalesItemAllDataDTO> pageDTO = listMapper.toPageDTO(products, SalesItemAllDataDTO.class, modelMapper);
         return ResponseEntity.ok(pageDTO);
     }
