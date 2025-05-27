@@ -20,7 +20,6 @@ public class SaleItemCreateDTO {
     private BrandDTO brand;
     @NotEmpty(message = "Name is required and must not be Empty")
     private String description;
-    @Min(1)
     @NotNull
     private int price;
     private Integer ramGb;
